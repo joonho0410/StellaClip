@@ -1,0 +1,358 @@
+@import "tailwindcss";
+
+/* Centralized Design System Variables */
+:root {
+  /* =================== SALT DESIGN SYSTEM TOKENS =================== */
+  /* Color Tokens - Following Carbon DS naming conventions */
+  
+  /* Background tokens */
+  --salt-color-background: #08090A;
+  --salt-color-background-secondary: #1C1C1F;
+  --salt-color-background-tertiary: #232326;
+  --salt-color-background-quaternary: #28282C;
+  --salt-color-background-hover: hsla(0,0%,100%,.05);
+  --salt-color-background-selected: color-mix(in lch, #5e6ad2, #000 10%);
+  --salt-color-background-brand: #5E6AD2;
+  --salt-color-background-inverse: rgba(0,0,0,.9);
+  
+  /* Text tokens */
+  --salt-color-text-primary: #F7F8F8;
+  --salt-color-text-secondary: #D0D6E0;
+  --salt-color-text-tertiary: #8A8F98;
+  --salt-color-text-quaternary: #62666D;
+  --salt-color-text-inverse: #FFFFFF;
+  --salt-color-text-on-color: #FFFFFF;
+  --salt-color-text-helper: #8A8F98;
+  --salt-color-text-placeholder: #62666D;
+  
+  /* Border tokens */
+  --salt-color-border-subtle: #23252A;
+  --salt-color-border-subtle-selected: #34343a;
+  --salt-color-border-strong: #3E3E44;
+  
+  /* Interactive tokens */
+  --salt-color-interactive: #5E6AD2;
+  --salt-color-interactive-hover: #828FFF;
+  --salt-color-button-primary: #E6E6E6;
+  --salt-color-button-primary-hover: #D4D4D4;
+  --salt-color-button-primary-active: #C2C2C2;
+  --salt-color-button-secondary: #1C1C1F;
+  --salt-color-button-secondary-hover: #232326;
+  --salt-color-button-tertiary: transparent;
+  --salt-color-button-tertiary-hover: hsla(0,0%,100%,.05);
+  --salt-color-button-danger: #EB5757;
+  
+  /* Semantic tokens */
+  --salt-color-support-error: #EB5757;
+  --salt-color-support-success: #4CB782;
+  --salt-color-support-warning: #FC7840;
+  --salt-color-support-info: #4EA7FC;
+  
+  /* Focus tokens */
+  --salt-color-focus: #5E6AD2;
+  --salt-color-focus-inset: #FFFFFF;
+  --salt-color-focus-inverse: #5E6AD2;
+  
+  /* Link tokens */
+  --salt-color-link-primary: #828FFF;
+  --salt-color-link-primary-hover: #FFFFFF;
+  --salt-color-link-secondary: #D0D6E0;
+  
+  /* Layer tokens */
+  --salt-color-layer: #08090A;
+  --salt-color-layer-01: #1C1C1F;
+  --salt-color-layer-02: #232326;
+  --salt-color-layer-03: #28282C;
+  --salt-color-layer-hover: hsla(0,0%,100%,.05);
+  --salt-color-layer-selected: color-mix(in lch, #5e6ad2, #000 10%);
+  --salt-color-layer-accent: #7170FF;
+  
+  /* Icon tokens */
+  --salt-color-icon-primary: #F7F8F8;
+  --salt-color-icon-secondary: #D0D6E0;
+  --salt-color-icon-tertiary: #8A8F98;
+  --salt-color-icon-inverse: #FFFFFF;
+  --salt-color-icon-on-color: #FFFFFF;
+
+  /* Spacing Tokens - Following Carbon DS spacing scale */
+  --salt-spacing-spacing-01: 4px;
+  --salt-spacing-spacing-02: 8px;
+  --salt-spacing-spacing-03: 12px;
+  --salt-spacing-spacing-04: 16px;
+  --salt-spacing-spacing-05: 20px;
+  --salt-spacing-spacing-06: 24px;
+  --salt-spacing-spacing-07: 32px;
+  --salt-spacing-spacing-08: 40px;
+  --salt-spacing-spacing-09: 48px;
+  --salt-spacing-spacing-10: 64px;
+  --salt-spacing-spacing-11: 80px;
+  
+  /* Layout spacing */
+  --salt-spacing-layout-01: 16px;
+  --salt-spacing-layout-02: 24px;
+  --salt-spacing-layout-03: 32px;
+  --salt-spacing-layout-04: 48px;
+  --salt-spacing-layout-05: 64px;
+  
+  /* Container spacing */
+  --salt-spacing-container-01: 24px;
+  --salt-spacing-container-02: 48px;
+  
+  /* Fluid spacing */
+  --salt-spacing-fluid-spacing-01: 8px;
+  --salt-spacing-fluid-spacing-02: 16px;
+  --salt-spacing-fluid-spacing-03: 24px;
+  --salt-spacing-fluid-spacing-04: 32px;
+
+  /* Size Tokens - Following Salt DS size system */
+  --salt-size-size-base: 20px;
+  --salt-size-size-selectable: 12px;
+  --salt-size-size-icon: 16px;
+  --salt-size-size-icon-small: 12px;
+  --salt-size-size-icon-large: 20px;
+  --salt-size-size-icon-xlarge: 24px;
+  
+  /* Component heights */
+  --salt-size-height-xs: 24px;
+  --salt-size-height-sm: 32px;
+  --salt-size-height-md: 36px;
+  --salt-size-height-lg: 40px;
+  --salt-size-height-xl: 48px;
+  
+  /* Component widths */
+  --salt-size-width-xs: 64px;
+  --salt-size-width-sm: 128px;
+  --salt-size-width-md: 256px;
+  --salt-size-width-lg: 512px;
+  --salt-size-width-xl: 768px;
+  
+  /* Density variants */
+  --salt-size-density-high: 28px;
+  --salt-size-density-medium: 32px;
+  --salt-size-density-low: 40px;
+  --salt-size-density-touch: 44px;
+
+  /* Border Radius Tokens */
+  --salt-radius-radius-none: 0px;
+  --salt-radius-radius-sm: 4px;
+  --salt-radius-radius-md: 6px;
+  --salt-radius-radius-lg: 8px;
+  --salt-radius-radius-xl: 12px;
+  --salt-radius-radius-2xl: 16px;
+  --salt-radius-radius-3xl: 24px;
+  --salt-radius-radius-full: 9999px;
+  --salt-radius-radius-circle: 50%;
+
+  /* Shadow Tokens */
+  --salt-shadow-shadow-none: 0px 0px 0px transparent;
+  --salt-shadow-shadow-sm: 0px 2px 4px rgba(0,0,0,.1);
+  --salt-shadow-shadow-md: 0px 4px 24px rgba(0,0,0,.2);
+  --salt-shadow-shadow-lg: 0px 7px 32px rgba(0,0,0,.35);
+  --salt-shadow-shadow-xl: 0px 8px 2px 0px transparent, 0px 5px 2px 0px rgba(0,0,0,.01), 0px 3px 2px 0px rgba(0,0,0,.04), 0px 1px 1px 0px rgba(0,0,0,.07), 0px 0px 1px 0px rgba(0,0,0,.08);
+
+  /* Motion Tokens */
+  --salt-motion-duration-fast-01: 0.1s;
+  --salt-motion-duration-fast-02: 0.15s;
+  --salt-motion-duration-moderate-01: 0.25s;
+  --salt-motion-duration-moderate-02: 0.35s;
+  --salt-motion-duration-slow-01: 0.5s;
+  --salt-motion-duration-slow-02: 0.7s;
+  
+  /* Easing */
+  --salt-motion-easing-standard: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --salt-motion-easing-entrance: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --salt-motion-easing-exit: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  --salt-motion-easing-emphasized: cubic-bezier(0.86, 0, 0.07, 1);
+  
+  /* Combined motion */
+  --salt-motion-motion-standard: 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --salt-motion-motion-entrance: 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+  --salt-motion-motion-exit: 0.1s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+
+  /* =================== LEGACY VARIABLES (for backward compatibility) =================== */
+  /* Colors */
+  --color-primary: #5E6AD2;
+  --color-primary-hover: #828FFF;
+  --color-accent: #7170FF;
+  --color-accent-hover: #828FFF;
+  --color-accent-tint: #18182F;
+  
+  /* Background */
+  --color-bg-primary: #08090A;
+  --color-bg-secondary: #1C1C1F;
+  --color-bg-tertiary: #232326;
+  --color-bg-quaternary: #28282C;
+  --color-bg-quinary: #282828;
+  --color-bg-level-0: #08090A;
+  --color-bg-level-1: #0F1011;
+  --color-bg-level-2: #141516;
+  --color-bg-level-3: #191A1B;
+  --color-bg-marketing: #010102;
+  --color-bg-translucent: hsla(0,0%,100%,.05);
+  --color-bg-tint: #141516;
+  
+  /* Text */
+  --color-text-primary: #F7F8F8;
+  --color-text-secondary: #D0D6E0;
+  --color-text-tertiary: #8A8F98;
+  --color-text-quaternary: #62666D;
+  
+  /* Foreground */
+  --color-fg-primary: #F7F8F8;
+  --color-fg-secondary: #D0D6E0;
+  --color-fg-tertiary: #8A8F98;
+  --color-fg-quaternary: #62666D;
+  
+  /* Borders */
+  --color-border-primary: #23252A;
+  --color-border-secondary: #34343A;
+  --color-border-tertiary: #3E3E44;
+  --color-border-translucent: hsla(0,0%,100%,.05);
+  
+  /* Semantic Colors */
+  --color-red: #EB5757;
+  --color-orange: #FC7840;
+  --color-yellow: #F2C94C;
+  --color-green: #4CB782;
+  --color-blue: #4EA7FC;
+  --color-indigo: #5E6AD2;
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  
+  /* Brand */
+  --color-brand-bg: #5E6AD2;
+  --color-brand-text: #FFFFFF;
+  
+  /* Links */
+  --color-link-primary: #828FFF;
+  --color-link-hover: #FFFFFF;
+  
+  /* Selection */
+  --color-selection-bg: color-mix(in lch,#5e6ad2,#000 10%);
+  --color-selection-text: #FFFFFF;
+  --color-selection-dim: color-mix(in lch,#5e6ad2,transparent 80%);
+  
+  /* Typography */
+  --font-family-primary: "Inter Variable", "SF Pro Display", -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --font-family-monospace: "Berkeley Mono", ui-monospace, "SF Mono", "Menlo", monospace;
+  --font-family-serif: "Tiempos Headline", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 510;
+  --font-weight-semibold: 590;
+  --font-weight-bold: 680;
+  
+  /* Spacing */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+  
+  /* Border Radius */
+  --radius-4: 4px;
+  --radius-6: 6px;
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-24: 24px;
+  --radius-32: 32px;
+  --radius-full: 9999px;
+  
+  /* Shadows */
+  --shadow-none: 0px 0px 0px transparent;
+  --shadow-low: 0px 2px 4px rgba(0,0,0,.1);
+  --shadow-medium: 0px 4px 24px rgba(0,0,0,.2);
+  --shadow-high: 0px 7px 32px rgba(0,0,0,.35);
+  
+  /* Transitions */
+  --transition-quick: 0.1s;
+  --transition-regular: 0.25s;
+  --ease-out-quad: cubic-bezier(0.25,0.46,0.45,0.94);
+  --ease-in-out-cubic: cubic-bezier(0.645,0.045,0.355,1);
+  
+  /* Focus */
+  --focus-ring-color: #5E6AD2;
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  
+  /* Component specific */
+  --header-height: 64px;
+  --header-bg: hsla(0,0%,4%,.8);
+  --header-border: hsla(0,0%,100%,.08);
+  --header-blur: 20px;
+}
+
+@theme inline {
+  --color-background: var(--color-bg-primary);
+  --color-foreground: var(--color-text-primary);
+  --font-sans: var(--font-family-primary);
+  --font-mono: var(--font-family-monospace);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-primary);
+  font-feature-settings: "cv01", "ss03";
+  font-variation-settings: "opsz" auto;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Selection styles */
+::selection {
+  background: var(--color-selection-bg);
+  color: var(--color-selection-text);
+}
+
+::-moz-selection {
+  background: var(--color-selection-bg);
+  color: var(--color-selection-text);
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsla(0,0%,100%,.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsla(0,0%,100%,.2);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: hsla(0,0%,100%,.4);
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
