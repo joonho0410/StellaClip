@@ -7,7 +7,7 @@ import { VideoCard } from '@/shared/ui/video-card';
 import { Button } from '@/shared/ui/button';
 import { Text } from '@/shared/ui/typography';
 import { Badge } from '@/shared/ui/badge';
-import { HeroVideosFeature } from '@/features/hero-videos';
+import { HeroVideosFeature } from '@/features/hero-section';
 import { cn } from '@/shared/lib/utils';
 
 // 샘플 비디오 데이터
