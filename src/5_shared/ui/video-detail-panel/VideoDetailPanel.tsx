@@ -3,7 +3,6 @@
 import React from 'react';
 import { cn } from '@/shared/lib/utils';
 import { YouTubePlayer } from '../youtube-player';
-import { VideoPlayer } from '../video-player';
 import { Text, Heading } from '../typography';
 import { Badge } from '../badge';
 import { Button, IconButton } from '../button';
@@ -21,9 +20,8 @@ export interface VideoDetailData {
   uploadTime?: string;
   isLive?: boolean;
   quality?: '4K' | 'HD' | 'SD';
-  // Video source - either YouTube or direct video
+  // Video source - YouTube only
   youtubeId?: string;
-  videoSrc?: string;
   tags?: string[];
   likeCount?: string;
   dislikeCount?: string;
@@ -87,13 +85,6 @@ export function VideoDetailPanel({
             title={video.title}
             className="w-full aspect-video"
             autoplay={false}
-          />
-        ) : video.videoSrc ? (
-          <VideoPlayer
-            src={video.videoSrc}
-            poster={video.thumbnail}
-            title={video.title}
-            className="w-full aspect-video"
           />
         ) : (
           <div className="w-full aspect-video bg-[var(--color-bg-tertiary)] flex items-center justify-center">

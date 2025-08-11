@@ -2,13 +2,11 @@ export {
   Skeleton, 
   VideoCardSkeleton, 
   VideoGridSkeleton, 
-  CategorySectionSkeleton,
-  VideoPlayerSkeleton
+  CategorySectionSkeleton
 } from './Skeleton';
 export type { 
   SkeletonProps, 
   VideoCardSkeletonProps, 
   VideoGridSkeletonProps, 
-  CategorySectionSkeletonProps,
-  VideoPlayerSkeletonProps
+  CategorySectionSkeletonProps
 } from './Skeleton';

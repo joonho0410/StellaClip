@@ -11,7 +11,6 @@ export * from './hero-section';
 // Video Components
 export * from './video-card';
 export * from './video-card-with-panel';
-export * from './video-player';
 export * from './video-grid';
 export * from './category-section';
 export * from './youtube-player';

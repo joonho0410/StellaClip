@@ -1,51 +1,69 @@
 import { useQuery } from '@tanstack/react-query';
-import { useCohortStella } from '@/4_entities/URLQuery/model/store';
 import type { VideoWithDetails } from '@/4_entities/video/api';
-import type {
-  CohortType,
-  StellaType,
-  VideoSortType,
-} from '@/4_entities/URLQuery/model/type';
 
-interface HeroVideoParams {
-  cohort: CohortType;
-  stella: StellaType;
-  sort?: VideoSortType;
-  limit?: number;
-  offset?: number;
-}
-
-async function fetchHeroVideos(
-  params: HeroVideoParams
-): Promise<VideoWithDetails[]> {
-  const searchParams = new URLSearchParams({
-    cohort: params.cohort,
-    stella: params.stella,
-    limit: params.limit?.toString() || '8',
-    offset: params.offset?.toString() || '0',
-    ...(params.sort && { sort: params.sort }),
-  });
-
-  const response = await fetch(`/api/videos?${searchParams}`);
+async function fetchHeroVideos(): Promise<VideoWithDetails[]> {
+  const response = await fetch('/api/getLatestVideo');
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch videos: ${response.statusText}`);
+    throw new Error(`Failed to fetch latest videos: ${response.statusText}`);
   }
 
-  return response.json();
+  const result = await response.json();
+  
+  // Transform YouTube API data to VideoWithDetails format
+  const transformedVideos: VideoWithDetails[] = result.data.items.map((item: {
+    id: { videoId: string };
+    snippet: {
+      title: string;
+      description: string;
+      publishedAt: string;
+      channelId: string;
+      channelTitle: string;
+      thumbnails: {
+        default?: { url: string };
+        medium?: { url: string };
+        high?: { url: string };
+      };
+    };
+  }) => ({
+    id: item.id.videoId,
+    title: item.snippet.title,
+    description: item.snippet.description,
+    thumbnail: item.snippet.thumbnails.high?.url || item.snippet.thumbnails.default?.url || null,
+    videoUrl: `https://www.youtube.com/watch?v=${item.id.videoId}`,
+    youtubeId: item.id.videoId,
+    youtubeUrl: `https://www.youtube.com/watch?v=${item.id.videoId}`,
+    duration: null,
+    views: 0,
+    isPublic: true,
+    createdAt: new Date(item.snippet.publishedAt),
+    updatedAt: new Date(item.snippet.publishedAt),
+    userId: item.snippet.channelId,
+    user: {
+      id: item.snippet.channelId,
+      username: item.snippet.channelTitle,
+      fullName: item.snippet.channelTitle,
+      avatarUrl: null,
+    },
+    tags: [],
+    _count: {
+      comments: 0,
+      likes: 0,
+    },
+  }));
+
+  return transformedVideos;
 }
 
 export function useHeroVideos() {
-  const { cohort, stella } = useCohortStella();
-
   const {
     data = [],
     isLoading: loading,
     error,
     refetch,
   } = useQuery({
-    queryKey: ['heroVideos', { cohort, stella }],
-    queryFn: () => fetchHeroVideos({ cohort, stella }),
+    queryKey: ['heroVideos'],
+    queryFn: fetchHeroVideos,
     staleTime: 5 * 60 * 1000, // 5 minutes
     refetchOnWindowFocus: false,
   });

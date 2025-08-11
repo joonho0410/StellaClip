@@ -7,8 +7,8 @@ import { VideoCard } from '@/shared/ui/video-card';
 import { Button } from '@/shared/ui/button';
 import { Text } from '@/shared/ui/typography';
 import { Badge } from '@/shared/ui/badge';
-import { HeroVideosFeature } from '@/features/hero-section';
 import { cn } from '@/shared/lib/utils';
+import { HeroSection } from '@/3_features/hero-section';
 
 // 샘플 비디오 데이터
 const videoSections = {
@@ -178,7 +178,8 @@ const videoSections = {
 const heroVideo = {
   id: 'dQw4w9WgXcQ',
   title: 'Rick Astley - Never Gonna Give You Up (Official Video)',
-  description: '가장 유명한 인터넷 밈 중 하나가 된 Rick Astley의 클래식한 히트곡입니다. 1987년에 발매된 이 곡은 수십 년이 지난 지금도 사랑받고 있으며, "Rickrolling" 문화의 중심이 되었습니다.',
+  description:
+    '가장 유명한 인터넷 밈 중 하나가 된 Rick Astley의 클래식한 히트곡입니다. 1987년에 발매된 이 곡은 수십 년이 지난 지금도 사랑받고 있으며, "Rickrolling" 문화의 중심이 되었습니다.',
   thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
   channelName: 'Rick Astley',
   channelAvatar: 'https://picsum.photos/seed/rickastley/40/40',
@@ -187,7 +188,8 @@ const heroVideo = {
 };
 
 export function HomePage() {
-  const [activeSection, setActiveSection] = useState<keyof typeof videoSections>('trending');
+  const [activeSection, setActiveSection] =
+    useState<keyof typeof videoSections>('trending');
   const [currentVideo, setCurrentVideo] = useState<string | null>(null);
 
   const handleVideoClick = (videoId: string) => {
@@ -199,9 +201,7 @@ export function HomePage() {
 
   return (
     <div className="min-h-screen bg-[var(--color-bg-primary)]">
-      {/* Hero Videos Feature Section */}
-      <HeroVideosFeature />
-      
+      <HeroSection />
       {/* Original Hero Section */}
       <section className="relative mb-16">
         <div className="container mx-auto px-4 py-8">
@@ -245,8 +245,8 @@ export function HomePage() {
               </div>
 
               <div className="flex gap-4">
-                <Button 
-                  variant="primary" 
+                <Button
+                  variant="primary"
                   size="lg"
                   onClick={() => handleVideoClick(heroVideo.id)}
                 >
@@ -282,7 +282,9 @@ export function HomePage() {
                 key={section.id}
                 variant={activeSection === section.id ? 'primary' : 'ghost'}
                 size="md"
-                onClick={() => setActiveSection(section.id as keyof typeof videoSections)}
+                onClick={() =>
+                  setActiveSection(section.id as keyof typeof videoSections)
+                }
                 className={cn(
                   'flex-shrink-0 gap-2',
                   activeSection === section.id && 'shadow-lg'
@@ -301,7 +303,9 @@ export function HomePage() {
         <div className="container mx-auto px-4">
           {/* Section Title */}
           <div className="flex items-center gap-3 mb-8">
-            <span className="text-2xl">{videoSections[activeSection].icon}</span>
+            <span className="text-2xl">
+              {videoSections[activeSection].icon}
+            </span>
             <h2 className="text-2xl font-bold text-[var(--color-text-primary)]">
               {videoSections[activeSection].title}
             </h2>
@@ -349,7 +353,7 @@ export function HomePage() {
                 지금 인기 급상승
               </h2>
             </div>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {videoSections.trending.videos.slice(0, 3).map((video) => (
                 <VideoCard
@@ -372,8 +376,8 @@ export function HomePage() {
             </div>
 
             <div className="text-center mt-8">
-              <Button 
-                variant="primary" 
+              <Button
+                variant="primary"
                 size="lg"
                 onClick={() => setActiveSection('trending')}
               >
@@ -395,10 +399,18 @@ export function HomePage() {
               최고의 비디오 콘텐츠를 발견하고 즐기세요
             </Text>
             <div className="flex justify-center gap-4 mt-6">
-              <Button variant="ghost" size="sm">소개</Button>
-              <Button variant="ghost" size="sm">개인정보처리방침</Button>
-              <Button variant="ghost" size="sm">이용약관</Button>
-              <Button variant="ghost" size="sm">고객지원</Button>
+              <Button variant="ghost" size="sm">
+                소개
+              </Button>
+              <Button variant="ghost" size="sm">
+                개인정보처리방침
+              </Button>
+              <Button variant="ghost" size="sm">
+                이용약관
+              </Button>
+              <Button variant="ghost" size="sm">
+                고객지원
+              </Button>
             </div>
           </div>
         </div>

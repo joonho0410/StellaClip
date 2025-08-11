@@ -470,31 +470,6 @@ export interface MediaComponentProps extends BaseComponentProps {
   fallback?: ReactNode;
 }
 
-/**
- * Props for video player components
- */
-export interface VideoPlayerProps extends MediaComponentProps {
-  /** Video title */
-  title?: string;
-  /** Whether to autoplay */
-  autoplay?: boolean;
-  /** Whether to show controls */
-  controls?: boolean;
-  /** Whether to loop */
-  loop?: boolean;
-  /** Whether to mute */
-  muted?: boolean;
-  /** Poster image */
-  poster?: string;
-  /** Play callback */
-  onPlay?: () => void;
-  /** Pause callback */
-  onPause?: () => void;
-  /** End callback */
-  onEnded?: () => void;
-  /** Time update callback */
-  onTimeUpdate?: (currentTime: number, duration: number) => void;
-}
 
 // =====================================================
 // DATA DISPLAY INTERFACES

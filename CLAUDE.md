@@ -53,7 +53,7 @@ yarn add -D <package-name>
 - **Form Elements**: `Input`, `Textarea`, `Label`, `FormField` with validation states
 - **Interactive**: `Button`, `IconButton` with multiple variants and states
 - **Display**: `Card`, `Badge`, `Avatar`, `Separator` for content organization
-- **Video Components**: Specialized `VideoCard`, `VideoPlayer`, `VideoGrid` components
+- **Video Components**: Specialized `VideoCard`, `VideoGrid` components
 
 ### Styling Approach
 - **Tailwind CSS v4**: Uses `@tailwindcss/postcss` plugin
@@ -200,7 +200,7 @@ size: 'micro' | 'tiny' | 'mini' | 'small' | 'regular' | 'large'
 
 **Video-Specific:**
 - `VideoCard` - Video thumbnails with metadata
-- `VideoPlayer`, `YouTubePlayer` - Video playback
+- `YouTubePlayer` - YouTube video playback
 - `VideoGrid` - Grid layouts for videos
 - `VideoCardWithPanel` - Cards with slide-out details
 - `VideoDetailPanel` - Detailed video information

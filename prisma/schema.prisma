@@ -38,7 +38,7 @@ model Video {
   title       String
   description String?
   thumbnail   String?
-  videoUrl    String
+  videoUrl    String?
   duration    Int? // Duration in seconds
   views       Int      @default(0)
   isPublic    Boolean  @default(true)

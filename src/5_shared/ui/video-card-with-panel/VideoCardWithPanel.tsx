@@ -65,7 +65,6 @@ export function VideoCardWithPanel({
     quality: videoProps.quality,
     description: videoProps.description,
     youtubeId: videoProps.youtubeId,
-    videoSrc: videoProps.videoSrc,
     tags: videoProps.tags,
     likeCount: videoProps.likeCount,
     dislikeCount: videoProps.dislikeCount,

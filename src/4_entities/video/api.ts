@@ -5,11 +5,11 @@ export interface CreateVideoData {
   title: string
   description?: string
   thumbnail?: string
-  videoUrl: string
+  videoUrl?: string
   duration?: number
   isPublic?: boolean
-  youtubeId?: string
-  youtubeUrl?: string
+  youtubeId: string
+  youtubeUrl: string
   userId: string
   tagIds?: string[]
 }
@@ -18,6 +18,7 @@ export interface UpdateVideoData {
   title?: string
   description?: string
   thumbnail?: string
+  videoUrl?: string
   duration?: number
   isPublic?: boolean
   tagIds?: string[]

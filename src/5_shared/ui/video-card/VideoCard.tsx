@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { cn } from '@/shared/lib/utils';
 import { Text } from '../typography';
@@ -21,11 +21,10 @@ export interface VideoCardProps {
   showChannel?: boolean;
   aspectRatio?: '16:9' | '4:3' | '1:1';
   priority?: boolean; // Add priority prop for image loading
-  // Extended props for video detail
+  // Extended props for video detail  
   id?: string;
   description?: string;
   youtubeId?: string;
-  videoSrc?: string;
   tags?: string[];
   likeCount?: string;
   dislikeCount?: string;
@@ -75,19 +74,13 @@ export function VideoCard({
   id: _id,
   description: _description,
   youtubeId: _youtubeId,
-  videoSrc: _videoSrc,
   tags: _tags,
   likeCount: _likeCount,
-  dislikeCount: _dislikeCount,
+  dislikeCount: _dislikeCount
 }: VideoCardProps) {
   const sizeConfig = sizeStyles[size];
   const [thumbnailError, setThumbnailError] = useState(false);
   const [avatarError, setAvatarError] = useState(false);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   // Check if URL is valid and from allowed domains
   const isValidUrl = (url: string | undefined) => {
