@@ -17,7 +17,6 @@ interface VideoSectionProps {
   videos: VideoWithDetails[];
   onSlideChange: (index: number) => void;
   thumbsSwiper: SwiperType | null;
-  onMainSwiperInit?: (swiper: SwiperType) => void;
   className?: string;
 }
 
@@ -25,7 +24,6 @@ export function VideoSection({
   videos,
   onSlideChange,
   thumbsSwiper,
-  onMainSwiperInit,
   className,
 }: VideoSectionProps) {
   return (
@@ -53,7 +51,6 @@ export function VideoSection({
               thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
             slideThumbActiveClass: 'swiper-slide-thumb-active',
           }}
-          onSwiper={onMainSwiperInit}
           onSlideChange={(swiper) => onSlideChange(swiper.activeIndex)}
           className="w-full max-w-full h-full overflow-hidden"
         >

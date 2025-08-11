@@ -19,14 +19,10 @@ interface HeroSectionProps {
 export function HeroSection({ className, videos }: HeroSectionProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
-  const [mainSwiper, setMainSwiper] = useState<SwiperType | null>(null);
   const currentVideo = videos[activeIndex];
 
   const handleSlideChange = (index: number) => {
     setActiveIndex(index);
-    if (mainSwiper && !mainSwiper.destroyed) {
-      mainSwiper.slideTo(index);
-    }
   };
 
   return (
@@ -49,7 +45,6 @@ export function HeroSection({ className, videos }: HeroSectionProps) {
                 videos={videos}
                 onSlideChange={setActiveIndex}
                 thumbsSwiper={thumbsSwiper}
-                onMainSwiperInit={setMainSwiper}
                 className="w-full max-w-full"
               />
             </div>
