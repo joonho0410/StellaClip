@@ -3,6 +3,9 @@ import { latestVideoData } from '../../../../mockData/videoAPI.js';
 
 export async function GET() {
   try {
+    // 2초 딜레이 추가 (스켈레톤 UI 확인용)
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
     return NextResponse.json({
       data: latestVideoData,
       success: true,

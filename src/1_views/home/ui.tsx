@@ -8,7 +8,7 @@ import { Button } from '@/shared/ui/button';
 import { Text } from '@/shared/ui/typography';
 import { Badge } from '@/shared/ui/badge';
 import { cn } from '@/shared/lib/utils';
-import { HeroSection } from '@/3_features/hero-section';
+import { ContainerHeroSection } from '@/3_features/hero-section';
 
 // 샘플 비디오 데이터
 const videoSections = {
@@ -201,7 +201,7 @@ export function HomePage() {
 
   return (
     <div className="min-h-screen bg-[var(--color-bg-primary)]">
-      <HeroSection />
+      <ContainerHeroSection />
       {/* Original Hero Section */}
       <section className="relative mb-16">
         <div className="container mx-auto px-4 py-8">
