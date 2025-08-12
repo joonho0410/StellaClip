@@ -18,7 +18,7 @@ export function HeroSectionSkeleton({ className }: HeroSectionSkeletonProps) {
         <div className="p-3 sm:p-4 lg:p-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 lg:gap-8 xl:gap-12 items-start">
             {/* Left: Video Player Skeleton */}
-            <div className="relative w-full order-1 lg:order-2">
+            <div className="relative w-full order-1">
               <div className="relative w-full max-w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] xl:h-[400px] overflow-hidden rounded-lg sm:rounded-xl shadow-lg sm:shadow-xl lg:shadow-2xl">
                 <Skeleton className="w-full h-full" />
 
@@ -43,7 +43,7 @@ export function HeroSectionSkeleton({ className }: HeroSectionSkeletonProps) {
             </div>
 
             {/* Right: Video Details Skeleton (hidden on mobile) */}
-            <div className="space-y-4 sm:space-y-6 order-2 lg:order-1">
+            <div className="space-y-4 sm:space-y-6 order-2">
               <div className="space-y-4">
                 {/* Badge skeleton */}
                 <Skeleton width={120} height={28} className="rounded-full" />
