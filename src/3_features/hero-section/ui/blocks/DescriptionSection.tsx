@@ -1,11 +1,10 @@
 'use client';
 
-import Image from 'next/image';
 import { cn } from '@/5_shared/lib/utils';
-import type { VideoWithDetails } from '@/4_entities/video/api';
+import type { VideoItem } from '@/4_entities/video/types';
 
 interface DescriptionSectionProps {
-  video: VideoWithDetails;
+  video: VideoItem;
   className?: string;
 }
 
@@ -35,25 +34,18 @@ export function DescriptionSection({
       {/* Channel Information */}
       <div className="flex items-center gap-4 p-4 bg-[var(--color-bg-secondary)] rounded-lg border border-[var(--color-border-primary)]">
         <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0 bg-[var(--color-bg-tertiary)]">
-          {video.user?.avatarUrl && (
-            <Image
-              src={video.user.avatarUrl}
-              alt={video.user.username || 'Channel'}
-              fill
-              className="object-cover"
-              sizes="48px"
-            />
-          )}
+          <div className="w-full h-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
+            <span className="text-white font-semibold text-lg">
+              {video.channelTitle?.charAt(0) || 'C'}
+            </span>
+          </div>
         </div>
         <div className="flex-1 min-w-0">
           <h3 className="font-medium text-[var(--color-text-primary)] truncate">
-            {video.user?.username || video.user?.fullName}
+            {video.channelTitle}
           </h3>
           <p className="text-sm text-[var(--color-text-tertiary)]">
-            {video.views?.toLocaleString()} views •{' '}
-            {video.createdAt
-              ? new Date(video.createdAt).toLocaleDateString()
-              : ''}
+            {new Date(video.publishedAt).toLocaleDateString()}
           </p>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import type { VideoWithDetails } from '@/4_entities/video/api';
+import type { VideoItem, YouTubeSearchResult } from '@/4_entities/video/types';
 
-async function fetchHeroVideos(): Promise<VideoWithDetails[]> {
+async function fetchHeroVideos(): Promise<VideoItem[]> {
   const response = await fetch('/api/getLatestVideo');
 
   if (!response.ok) {
@@ -10,45 +10,22 @@ async function fetchHeroVideos(): Promise<VideoWithDetails[]> {
 
   const result = await response.json();
   
-  // Transform YouTube API data to VideoWithDetails format
-  const transformedVideos: VideoWithDetails[] = result.data.items.map((item: {
-    id: { videoId: string };
-    snippet: {
-      title: string;
-      description: string;
-      publishedAt: string;
-      channelId: string;
-      channelTitle: string;
-      thumbnails: {
-        default?: { url: string };
-        medium?: { url: string };
-        high?: { url: string };
-      };
-    };
-  }) => ({
+  // Transform YouTube API data to VideoItem format
+  const transformedVideos: VideoItem[] = result.data.items.map((item: YouTubeSearchResult) => ({
     id: item.id.videoId,
-    title: item.snippet.title,
-    description: item.snippet.description,
-    thumbnail: item.snippet.thumbnails.high?.url || item.snippet.thumbnails.default?.url || null,
-    videoUrl: `https://www.youtube.com/watch?v=${item.id.videoId}`,
     youtubeId: item.id.videoId,
-    youtubeUrl: `https://www.youtube.com/watch?v=${item.id.videoId}`,
-    duration: null,
-    views: 0,
-    isPublic: true,
-    createdAt: new Date(item.snippet.publishedAt),
-    updatedAt: new Date(item.snippet.publishedAt),
-    userId: item.snippet.channelId,
-    user: {
-      id: item.snippet.channelId,
-      username: item.snippet.channelTitle,
-      fullName: item.snippet.channelTitle,
-      avatarUrl: null,
-    },
-    tags: [],
-    _count: {
-      comments: 0,
-      likes: 0,
+    title: item.snippet?.title || '',
+    description: item.snippet?.description || '',
+    thumbnail: item.snippet?.thumbnails.high?.url || item.snippet?.thumbnails.medium?.url || item.snippet?.thumbnails.default?.url || '',
+    channelId: item.snippet?.channelId || '',
+    channelTitle: item.snippet?.channelTitle || '',
+    publishedAt: item.snippet?.publishedAt || '',
+    publishTime: item.snippet?.publishTime || '',
+    liveBroadcastContent: item.snippet?.liveBroadcastContent || '',
+    thumbnails: item.snippet?.thumbnails || {
+      default: { url: '', width: 120, height: 90 },
+      medium: { url: '', width: 320, height: 180 },
+      high: { url: '', width: 480, height: 360 },
     },
   }));
 

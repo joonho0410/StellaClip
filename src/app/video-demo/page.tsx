@@ -158,7 +158,7 @@ export default function VideoDemo() {
               <Badge variant="outline">Click to load</Badge>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 @md:grid-cols-2 @lg:grid-cols-3 gap-6">
               {mockYouTubeVideos.slice(0, 6).map((video) => (
                 <Card 
                   key={video.id} 
@@ -218,7 +218,7 @@ export default function VideoDemo() {
                   </Button>
                 </div>
                 
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                <div className="grid grid-cols-2 @md:grid-cols-3 @lg:grid-cols-5 gap-4">
                   {recentVideos.map((video) => (
                     <div
                       key={video.id}

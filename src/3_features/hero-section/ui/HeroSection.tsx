@@ -3,17 +3,17 @@
 import { useState } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
 import { cn } from '@/5_shared/lib/utils';
-import type { VideoWithDetails } from '@/4_entities/video/api';
 import { Card } from '@/5_shared/ui/card';
 import {
   VideoSection,
   DescriptionSection,
   ThumbnailNavigation,
 } from './blocks';
+import { VideoItem } from '@/4_entities';
 
 interface HeroSectionProps {
   className?: string;
-  videos: VideoWithDetails[];
+  videos: VideoItem[];
 }
 
 export function HeroSection({ className, videos }: HeroSectionProps) {
@@ -37,8 +37,8 @@ export function HeroSection({ className, videos }: HeroSectionProps) {
         padding="none"
         className="overflow-hidden w-full max-w-full"
       >
-        <div className="p-3 sm:p-4 lg:p-8 w-full max-w-full overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 lg:gap-8 xl:gap-12 items-start w-full max-w-full">
+        <div className="@container p-3 sm:p-4 lg:p-8 w-full max-w-full overflow-hidden">
+          <div className="grid grid-cols-1 @2xl:grid-cols-2 gap-3 sm:gap-4 lg:gap-8 xl:gap-12 items-start w-full max-w-full">
             {/* Video Section */}
             <div className="w-full max-w-full order-1 overflow-hidden min-w-0 self-center">
               <VideoSection
@@ -48,7 +48,6 @@ export function HeroSection({ className, videos }: HeroSectionProps) {
                 className="w-full max-w-full"
               />
             </div>
-
             {/* Description Section */}
             <DescriptionSection video={currentVideo} className="order-2" />
           </div>

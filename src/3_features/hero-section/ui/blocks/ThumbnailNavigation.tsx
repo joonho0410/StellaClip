@@ -2,17 +2,17 @@
 
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Thumbs } from 'swiper/modules';
+import { Thumbs, Navigation } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
 import { cn } from '@/5_shared/lib/utils';
-import type { VideoWithDetails } from '@/4_entities/video/api';
+import type { VideoItem } from '@/4_entities/video/types';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/thumbs';
 
 interface ThumbnailNavigationProps {
-  videos: VideoWithDetails[];
+  videos: VideoItem[];
   activeIndex: number;
   onThumbnailSwiperInit: (swiper: SwiperType) => void;
   onSlideChange?: (index: number) => void;
@@ -27,15 +27,19 @@ export function ThumbnailNavigation({
   className 
 }: ThumbnailNavigationProps) {
   return (
-    <div className={cn('w-full', className)}>
+    <div className={cn('w-full relative', className)}>
       <div className="bg-[var(--color-bg-tertiary)] backdrop-blur-sm rounded-lg p-2 sm:p-3 lg:p-4 mx-auto w-full border border-[var(--color-border-primary)]">
         <Swiper
-          modules={[Thumbs]}
+          modules={[Thumbs, Navigation]}
           onSwiper={onThumbnailSwiperInit}
           spaceBetween={6}
           slidesPerView={'auto'}
           freeMode={true}
           watchSlidesProgress={true}
+          navigation={{
+            prevEl: '.thumbnail-button-prev',
+            nextEl: '.thumbnail-button-next',
+          }}
           className="thumbnail-swiper h-[50px] sm:h-[60px] lg:h-[80px]"
           breakpoints={{
             320: {
@@ -82,6 +86,26 @@ export function ThumbnailNavigation({
             </SwiperSlide>
           ))}
         </Swiper>
+      </div>
+
+      {/* Custom Navigation Arrows for Thumbnail Swiper */}
+      <div className="thumbnail-button-prev absolute left-0 top-0 z-20 w-8 sm:w-10 lg:w-12 h-full bg-gray-500 bg-opacity-10 hover:bg-opacity-20 flex items-center justify-center cursor-pointer transition-all duration-200">
+        <svg
+          className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-[var(--color-text-primary)] drop-shadow-lg"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+        </svg>
+      </div>
+      <div className="thumbnail-button-next absolute right-0 top-0 z-20 w-8 sm:w-10 lg:w-12 h-full bg-gray-500 bg-opacity-10 hover:bg-opacity-20 flex items-center justify-center cursor-pointer transition-all duration-200">
+        <svg
+          className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-[var(--color-text-primary)] drop-shadow-lg"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+        </svg>
       </div>
     </div>
   );
