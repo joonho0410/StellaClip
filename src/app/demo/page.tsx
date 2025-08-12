@@ -389,7 +389,7 @@ const theme = {
           <Stack spacing="lg">
             <Heading as="h2" size="title3">Cards</Heading>
             
-            <Grid cols={1} colsMedium={2} colsLarge={3} gap="lg">
+            <Grid cols={1} colsDesktop={3} gap="lg">
               <Card variant="default">
                 <CardHeader>
                   <Heading as="h3" size="title1">Default Card</Heading>
@@ -529,7 +529,7 @@ const theme = {
                     <Card variant="outlined" padding="md">
                       <Text size="small" weight="medium" color="secondary">Responsive Grid (1 → 2 → 4 columns)</Text>
                       <Spacer size="xs" />
-                      <Grid cols={1} colsSmall={2} colsLarge={4} gap="sm">
+                      <Grid cols={1} colsDesktop={4} gap="sm">
                         <div className="h-12 bg-[var(--color-orange)] rounded-md opacity-20"></div>
                         <div className="h-12 bg-[var(--color-orange)] rounded-md opacity-40"></div>
                         <div className="h-12 bg-[var(--color-orange)] rounded-md opacity-60"></div>
@@ -584,7 +584,7 @@ const theme = {
                 <div>
                   <Text size="small" color="tertiary" weight="medium">PRIMARY COLORS</Text>
                   <Spacer size="sm" />
-                  <Grid cols={2} colsSmall={3} colsLarge={6} gap="sm">
+                  <Grid cols={2} colsDesktop={6} gap="sm">
                     <div className="text-center">
                       <div className="h-16 w-full bg-[var(--color-primary)] rounded-md mb-2"></div>
                       <Text size="tiny" color="secondary">Primary</Text>
@@ -615,7 +615,7 @@ const theme = {
                 <div>
                   <Text size="small" color="tertiary" weight="medium">BACKGROUND COLORS</Text>
                   <Spacer size="sm" />
-                  <Grid cols={2} colsSmall={3} colsLarge={5} gap="sm">
+                  <Grid cols={2} colsDesktop={5} gap="sm">
                     <div className="text-center">
                       <div className="h-16 w-full bg-[var(--color-bg-primary)] border border-[var(--color-border-primary)] rounded-md mb-2"></div>
                       <Text size="tiny" color="secondary">Primary</Text>

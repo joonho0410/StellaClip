@@ -158,7 +158,7 @@ export default function VideoDemo() {
               <Badge variant="outline">Click to load</Badge>
             </div>
             
-            <div className="grid grid-cols-1 @md:grid-cols-2 @lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 @2xl:grid-cols-3 gap-6">
               {mockYouTubeVideos.slice(0, 6).map((video) => (
                 <Card 
                   key={video.id} 
@@ -218,7 +218,7 @@ export default function VideoDemo() {
                   </Button>
                 </div>
                 
-                <div className="grid grid-cols-2 @md:grid-cols-3 @lg:grid-cols-5 gap-4">
+                <div className="grid grid-cols-2 @2xl:grid-cols-4 gap-4">
                   {recentVideos.map((video) => (
                     <div
                       key={video.id}
@@ -303,7 +303,7 @@ export default function VideoDemo() {
           <Stack spacing="lg">
             <Heading as="h2" size="title2">Playlist Component</Heading>
             
-            <Grid cols={1} colsLarge={2} gap="lg">
+            <Grid cols={1} colsDesktop={2} gap="lg">
               <Card variant="outlined" padding="lg">
                 <CardHeader>
                   <Heading as="h3" size="title1">My Playlist</Heading>
@@ -367,7 +367,7 @@ export default function VideoDemo() {
           <Stack spacing="lg">
             <Heading as="h2" size="title2">Design System Components</Heading>
             
-            <Grid cols={1} colsMedium={2} gap="lg">
+            <Grid cols={1} colsDesktop={2} gap="lg">
               <Card variant="outlined" padding="lg">
                 <CardHeader>
                   <Heading as="h3" size="title1">YouTube Player</Heading>

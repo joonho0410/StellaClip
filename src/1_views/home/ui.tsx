@@ -205,7 +205,7 @@ export function HomePage() {
       {/* Original Hero Section */}
       <section className="relative mb-16">
         <div className="container mx-auto px-4 py-8">
-          <div className="grid @lg:grid-cols-2 gap-12 items-center">
+          <div className="grid @2xl:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Hero Content */}
             <div className="space-y-8">
               <div className="space-y-4">
@@ -313,7 +313,7 @@ export function HomePage() {
           </div>
 
           {/* Video Grid */}
-          <div className="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 @xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 @2xl:grid-cols-3 @5xl:grid-cols-4 gap-6">
             {currentSectionVideos.map((video) => (
               <VideoCard
                 key={video.id}
@@ -354,7 +354,7 @@ export function HomePage() {
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 @2xl:grid-cols-3 @5xl:grid-cols-4 gap-6">
               {videoSections.trending.videos.slice(0, 3).map((video) => (
                 <VideoCard
                   key={video.id}

@@ -28,7 +28,7 @@ export function HeroSection({ className, videos }: HeroSectionProps) {
   return (
     <div
       className={cn(
-        'w-full max-w-7xl mx-auto px-2 sm:px-4 py-2 sm:py-4 mb-4 sm:mb-8',
+        'w-full max-w-7xl mx-auto px-4 py-4 mb-8 lg:px-6 lg:py-6',
         className
       )}
     >
@@ -37,8 +37,8 @@ export function HeroSection({ className, videos }: HeroSectionProps) {
         padding="none"
         className="overflow-hidden w-full max-w-full"
       >
-        <div className="@container p-3 sm:p-4 lg:p-8 w-full max-w-full overflow-hidden">
-          <div className="grid grid-cols-1 @2xl:grid-cols-2 gap-3 sm:gap-4 lg:gap-8 xl:gap-12 items-start w-full max-w-full">
+        <div className="@container p-4 lg:p-8 w-full max-w-full overflow-hidden">
+          <div className="grid grid-cols-1 @2xl:grid-cols-2 gap-6 lg:gap-12 items-start w-full max-w-full">
             {/* Video Section */}
             <div className="w-full max-w-full order-1 overflow-hidden min-w-0 self-center">
               <VideoSection
@@ -54,13 +54,13 @@ export function HeroSection({ className, videos }: HeroSectionProps) {
         </div>
 
         {/* Thumbnail Navigation - positioned at bottom of both sections */}
-        <div className="px-3 sm:px-4 lg:px-8 pb-3 sm:pb-4 lg:pb-8 hidden sm:block">
+        <div className="px-4 lg:px-8 pb-4 lg:pb-8 hidden lg:block">
           <ThumbnailNavigation
             videos={videos}
             activeIndex={activeIndex}
             onThumbnailSwiperInit={setThumbsSwiper}
             onSlideChange={handleSlideChange}
-            className="mt-3 sm:mt-4 lg:mt-8 pt-3 sm:pt-4 lg:pt-8 border-t border-[var(--color-border-primary)]"
+            className="mt-6 lg:mt-8 pt-6 lg:pt-8 border-t border-[var(--color-border-primary)]"
           />
         </div>
       </Card>

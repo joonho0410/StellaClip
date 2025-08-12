@@ -5,10 +5,7 @@ import { Grid } from '../layout';
 export interface VideoGridProps {
   videos: (VideoCardProps & { id: string })[];
   cols?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-  colsSmall?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-  colsMedium?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-  colsLarge?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-  colsXLarge?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+  colsDesktop?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
   gap?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   className?: string;
   cardSize?: 'sm' | 'md' | 'lg';
@@ -20,10 +17,7 @@ export interface VideoGridProps {
 export function VideoGrid({
   videos,
   cols = 1,
-  colsSmall = 2,
-  colsMedium = 3,
-  colsLarge = 4,
-  colsXLarge = 5,
+  colsDesktop = 3,
   gap = 'lg',
   className,
   cardSize = 'md',
@@ -53,10 +47,7 @@ export function VideoGrid({
   return (
     <Grid
       cols={cols}
-      colsSmall={colsSmall}
-      colsMedium={colsMedium}
-      colsLarge={colsLarge}
-      colsXLarge={colsXLarge}
+      colsDesktop={colsDesktop}
       gap={gap}
       className={className}
     >

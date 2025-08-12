@@ -23,10 +23,7 @@ export interface CategorySectionProps {
   showChannel?: boolean;
   layout?: 'grid' | 'carousel';
   cols?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-  colsSmall?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-  colsMedium?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-  colsLarge?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-  colsXLarge?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+  colsDesktop?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 }
 
 // Navigation arrows for carousel
@@ -58,10 +55,7 @@ export function CategorySection({
   showChannel = true,
   layout = 'grid',
   cols = 1,
-  colsSmall = 2,
-  colsMedium = 3,
-  colsLarge = 4,
-  colsXLarge = 5,
+  colsDesktop = 3,
 }: CategorySectionProps) {
   const [scrollPosition, setScrollPosition] = useState(0);
   const displayVideos = maxItems ? videos.slice(0, maxItems) : videos;
@@ -92,10 +86,7 @@ export function CategorySection({
     <VideoGrid
       videos={displayVideos}
       cols={cols}
-      colsSmall={colsSmall}
-      colsMedium={colsMedium}
-      colsLarge={colsLarge}
-      colsXLarge={colsXLarge}
+      colsDesktop={colsDesktop}
       cardSize={cardSize}
       aspectRatio={aspectRatio}
       showChannel={showChannel}

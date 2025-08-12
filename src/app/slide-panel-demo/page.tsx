@@ -204,7 +204,7 @@ export default function SlidePanelDemoPage() {
             </div>
 
             {/* Video Grid */}
-            <div className="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 @xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 @2xl:grid-cols-3 gap-6">
               {sampleVideos.map((video, index) => (
                 <VideoCard
                   key={video.id}
@@ -218,7 +218,7 @@ export default function SlidePanelDemoPage() {
             {/* Additional Content for Scroll Testing */}
             <div className="space-y-8">
               <Heading size="title2">더 많은 비디오</Heading>
-              <div className="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 @xl:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 @2xl:grid-cols-3 gap-6">
                 {[...Array(12)].map((_, index) => {
                   // Fixed values to prevent SSR hydration mismatch
                   const durations = ['8:32', '12:45', '6:18', '15:22', '9:17', '11:35', '7:48', '13:12', '10:29', '14:55', '5:43', '16:08'];
@@ -245,7 +245,7 @@ export default function SlidePanelDemoPage() {
 
             <div className="space-y-8">
               <Heading size="title2">인기 튜토리얼</Heading>
-              <div className="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 @xl:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 @2xl:grid-cols-3 gap-6">
                 {[...Array(8)].map((_, index) => {
                   // Fixed values to prevent SSR hydration mismatch
                   const durations = ['25:18', '18:42', '32:15', '21:33', '28:07', '19:45', '35:22', '24:58'];
