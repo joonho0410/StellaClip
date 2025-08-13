@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useCurrentVideo } from '@/4_entities/video';
 import { VideoSideBar } from '@/3_features/video-sidebar';
+import { VideoCategoryBar } from '@/3_features/video-category';
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -44,6 +45,12 @@ export function AppLayout({ children }: AppLayoutProps) {
           marginLeft: isPanelOpen && !isMobile && !isPanelFullScreen ? `${panelWidth}px` : '0',
         }}
       >
+        {/* Fixed Header with VideoCategoryBar */}
+        <header className="sticky top-0 z-40 bg-[var(--color-bg-primary)] border-b border-[var(--color-border-primary)] backdrop-blur-sm bg-opacity-95">
+          <VideoCategoryBar />
+        </header>
+        
+        {/* Main Content */}
         <div className="flex-1 overflow-y-auto">
           {children}
         </div>

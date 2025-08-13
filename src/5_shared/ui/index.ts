@@ -7,6 +7,7 @@ export * from './layout';
 export * from './form';
 export * from './badge';
 export * from './hero-section';
+export * from './category-bar';
 
 // Video Components
 export * from './video-card';
