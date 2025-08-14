@@ -73,7 +73,8 @@ export function CategoryBar({
   };
 
   const activeTab = tabs.find((tab) => tab.id === currentActiveTab);
-  const hasSubTabs = showSubTabs && activeTab?.subTabs && activeTab.subTabs.length > 0;
+  const hasSubTabs =
+    showSubTabs && activeTab?.subTabs && activeTab.subTabs.length > 0;
 
   return (
     <div className={cn('w-full', className)}>
@@ -83,13 +84,13 @@ export function CategoryBar({
           <div className="flex gap-1 overflow-x-auto pb-0 scrollbar-hide">
             {tabs.map((tab) => {
               const isActive = currentActiveTab === tab.id;
-              
+
               return (
                 <button
                   key={tab.id}
                   onClick={() => handleTabClick(tab.id)}
                   className={cn(
-                    'flex items-center gap-2 px-4 py-3 text-sm font-medium whitespace-nowrap flex-shrink-0',
+                    'flex items-center gap-2 px-4 py-3 text-sm font-medium whitespace-nowrap flex-shrink-0 cursor-pointer',
                     'border-b-2 transition-all duration-200 ease-out',
                     'hover:text-[var(--salt-color-text-primary)]',
                     'focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--salt-color-focus)]',
@@ -125,7 +126,7 @@ export function CategoryBar({
             <div className="flex gap-2 overflow-x-auto py-3 scrollbar-hide">
               {activeTab.subTabs!.map((subTab) => {
                 const isActive = currentActiveSubTab === subTab.id;
-                
+
                 return (
                   <Button
                     key={subTab.id}

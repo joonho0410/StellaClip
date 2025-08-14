@@ -38,7 +38,14 @@ export interface VideoDetailPanelProps {
 
 // Icons
 const ShareIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+  >
     <circle cx="18" cy="5" r="3" />
     <circle cx="6" cy="12" r="3" />
     <circle cx="18" cy="19" r="3" />
@@ -48,20 +55,41 @@ const ShareIcon = () => (
 );
 
 const BookmarkIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+  >
     <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
   </svg>
 );
 
 const ThumbsUpIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+  >
     <path d="M7 10v12" />
     <path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h3.73a2 2 0 0 1 1.92 2.56z" />
   </svg>
 );
 
 const EyeIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+  >
     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
     <circle cx="12" cy="12" r="3" />
   </svg>
@@ -78,7 +106,7 @@ export function VideoDetailPanel({
   return (
     <div className={cn('flex flex-col h-full', className)}>
       {/* Video Player */}
-      <div className="relative bg-black">
+      <div className="relative bg-black p-4">
         {video.youtubeId ? (
           <YouTubePlayer
             videoId={video.youtubeId}
@@ -100,7 +128,11 @@ export function VideoDetailPanel({
             </Badge>
           )}
           {video.quality && (
-            <Badge variant="outline" size="sm" className="bg-black/60 text-white border-white/20">
+            <Badge
+              variant="outline"
+              size="sm"
+              className="bg-black/60 text-white border-white/20"
+            >
               {video.quality}
             </Badge>
           )}
@@ -121,11 +153,15 @@ export function VideoDetailPanel({
               {video.views && (
                 <div className="flex items-center gap-1">
                   <EyeIcon />
-                  <Text size="small" color="secondary">{video.views}</Text>
+                  <Text size="small" color="secondary">
+                    {video.views}
+                  </Text>
                 </div>
               )}
               {video.uploadTime && (
-                <Text size="small" color="secondary">{video.uploadTime}</Text>
+                <Text size="small" color="secondary">
+                  {video.uploadTime}
+                </Text>
               )}
             </div>
 
@@ -153,7 +189,7 @@ export function VideoDetailPanel({
 
         {/* Channel Info */}
         {video.channelName && (
-          <div 
+          <div
             className="flex items-center gap-3 p-4 rounded-lg bg-[var(--color-bg-secondary)] cursor-pointer hover:bg-[var(--color-bg-tertiary)] transition-colors"
             onClick={() => onChannelClick?.(video.channelName!)}
           >
@@ -177,11 +213,13 @@ export function VideoDetailPanel({
         {/* Description */}
         {video.description && (
           <div className="space-y-2">
-            <Text weight="semibold" color="primary">Description</Text>
+            <Text weight="semibold" color="primary">
+              Description
+            </Text>
             <div className="p-4 rounded-lg bg-[var(--color-bg-secondary)]">
-              <Text 
-                size="regular" 
-                color="secondary" 
+              <Text
+                size="regular"
+                color="secondary"
                 className="whitespace-pre-wrap leading-relaxed"
               >
                 {video.description}
@@ -193,7 +231,9 @@ export function VideoDetailPanel({
         {/* Tags */}
         {video.tags && video.tags.length > 0 && (
           <div className="space-y-2">
-            <Text weight="semibold" color="primary">Tags</Text>
+            <Text weight="semibold" color="primary">
+              Tags
+            </Text>
             <div className="flex flex-wrap gap-2">
               {video.tags.map((tag, index) => (
                 <Badge
@@ -212,22 +252,34 @@ export function VideoDetailPanel({
 
         {/* Additional Video Info */}
         <div className="space-y-2">
-          <Text weight="semibold" color="primary">Video Details</Text>
+          <Text weight="semibold" color="primary">
+            Video Details
+          </Text>
           <div className="p-4 rounded-lg bg-[var(--color-bg-secondary)] space-y-2">
             {video.duration && (
               <div className="flex justify-between">
-                <Text size="small" color="tertiary">Duration</Text>
-                <Text size="small" color="secondary">{video.duration}</Text>
+                <Text size="small" color="tertiary">
+                  Duration
+                </Text>
+                <Text size="small" color="secondary">
+                  {video.duration}
+                </Text>
               </div>
             )}
             {video.quality && (
               <div className="flex justify-between">
-                <Text size="small" color="tertiary">Quality</Text>
-                <Text size="small" color="secondary">{video.quality}</Text>
+                <Text size="small" color="tertiary">
+                  Quality
+                </Text>
+                <Text size="small" color="secondary">
+                  {video.quality}
+                </Text>
               </div>
             )}
             <div className="flex justify-between">
-              <Text size="small" color="tertiary">Video ID</Text>
+              <Text size="small" color="tertiary">
+                Video ID
+              </Text>
               <Text size="small" color="secondary" className="font-mono">
                 {video.youtubeId || video.id}
               </Text>
