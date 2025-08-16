@@ -32,6 +32,16 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+!.env.development
+
+# Database files
+# SQLite 데이터베이스 파일 - 팀과 공유하려면 주석 해제
+# prisma/dev.db
+# prisma/dev.db-journal
+
+# Database backups
+backups/
 
 # vercel
 .vercel

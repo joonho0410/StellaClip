@@ -1,23 +1,23 @@
-import type { StellaQueryType, CohortQueryType, VideoSortType } from './type';
+import type { StellaQueryType, GenQueryType, VideoSortType } from './type';
 
 /**
- * URL에서 cohort 파라미터를 안전하게 가져오는 함수
+ * URL에서 gen 파라미터를 안전하게 가져오는 함수
  */
-export function getCohortFromUrl(): CohortQueryType {
+export function getGenFromUrl(): GenQueryType {
   if (typeof window === 'undefined') return 'ALL';
 
   const urlParams = new URLSearchParams(window.location.search);
-  const cohort = urlParams.get('cohort');
+  const gen = urlParams.get('gen');
 
-  // 유효한 cohort 값인지 검증
-  const validCohorts: CohortQueryType[] = [
+  // 유효한 gen 값인지 검증
+  const validGens: GenQueryType[] = [
     'ALL',
     'Mystic',
     'Universe',
     'Cliche',
   ];
-  if (cohort && validCohorts.includes(cohort as CohortQueryType)) {
-    return cohort as CohortQueryType;
+  if (gen && validGens.includes(gen as GenQueryType)) {
+    return gen as GenQueryType;
   }
 
   return 'ALL';
@@ -35,12 +35,7 @@ export function getStellaFromUrl(): StellaQueryType {
   // 유효한 stella 값인지 검증
   const validStella: StellaQueryType[] = [
     'ALL',
-    'yuni',
-    'lyn',
-    'member1',
-    'member2',
-    'member3',
-    'member4',
+    
   ];
   if (stella && validStella.includes(stella as StellaQueryType)) {
     return stella as StellaQueryType;
@@ -73,7 +68,7 @@ export function getSortFromUrl(): VideoSortType | undefined {
 export function getInitialVideoSearchParams() {
   if (typeof window === 'undefined') {
     return {
-      cohort: 'ALL' as CohortQueryType,
+      gen: 'ALL' as GenQueryType,
       stella: 'ALL' as StellaQueryType,
       page: 1,
       sort: undefined,
@@ -84,7 +79,7 @@ export function getInitialVideoSearchParams() {
   const urlParams = new URLSearchParams(window.location.search);
 
   return {
-    cohort: getCohortFromUrl(),
+    gen: getGenFromUrl(),
     stella: getStellaFromUrl(),
     page: Math.max(1, parseInt(urlParams.get('page') || '1')),
     sort: getSortFromUrl(),

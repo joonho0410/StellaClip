@@ -5,10 +5,10 @@
 
 import { stellaMembers } from './const';
 type Stella = typeof stellaMembers;
-export type CohortType = keyof Stella;
+export type GenType = keyof Stella;
 export type Mystic = Stella['Mystic'];
 export type Universe = Stella['Universe'];
 export type Cliche = Stella['Cliche'];
-export type AllMember = CohortType extends any
-  ? Stella[CohortType][number]
+export type AllMember = GenType extends keyof Stella
+  ? Stella[GenType][number]
   : never;

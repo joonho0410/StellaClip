@@ -24,7 +24,7 @@ export interface HeroVideoSectionProps {
   featuredVideo?: VideoData;
   relatedVideos?: VideoData[];
   isLoading?: boolean;
-  cohort?: string;
+  gen?: string;
   member?: string;
   onVideoClick?: (video: VideoData) => void;
   onViewAllClick?: () => void;
@@ -35,7 +35,7 @@ export function HeroVideoSection({
   featuredVideo,
   relatedVideos = [],
   isLoading = false,
-  cohort = 'ALL',
+  gen = 'ALL',
   member,
   onVideoClick,
   onViewAllClick,
@@ -43,9 +43,9 @@ export function HeroVideoSection({
 }: HeroVideoSectionProps) {
   const displayTitle = member 
     ? `${member}의 최신 영상`
-    : cohort === 'ALL' 
+    : gen === 'ALL' 
       ? '공식채널 최신 영상'
-      : `${cohort} 최신 영상`;
+      : `${gen} 최신 영상`;
 
   if (isLoading) {
     return <HeroVideoSectionSkeleton className={className} />;
@@ -66,7 +66,7 @@ export function HeroVideoSection({
                 {displayTitle}
               </Heading>
               <Text size="large" color="secondary">
-                {member ? `${member}의 ` : cohort !== 'ALL' ? `${cohort} ` : ''}
+                {member ? `${member}의 ` : gen !== 'ALL' ? `${gen} ` : ''}
                 최신 업로드된 영상을 확인해보세요
               </Text>
             </div>

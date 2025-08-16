@@ -1,6 +1,6 @@
 import { useTransition } from 'react';
-import { useCohortStella } from '@/4_entities/URLQuery/model/store';
-import type { AllMember, CohortType } from '@/4_entities/stella';
+import { useGenStella } from '@/4_entities/URLQuery/model/store';
+import type { AllMember, GenType } from '@/4_entities/stella';
 
 /**
  * VideoCategoryBar를 위한 비즈니스 로직을 관리하는 커스텀 훅
@@ -9,17 +9,17 @@ import type { AllMember, CohortType } from '@/4_entities/stella';
  * - useTransition을 통한 성능 최적화
  */
 export const useVideoCategoryBar = () => {
-  const { cohort, stella, setCohort, setStella } = useCohortStella();
+  const { gen, stella, setGen, setStella } = useGenStella();
   const [isPending, startTransition] = useTransition();
 
   // 메인 탭 변경 핸들러
   const handleTabChange = (tabId: string) => {
     startTransition(() => {
       if (tabId === 'ALL') {
-        setCohort('ALL');
+        setGen('ALL');
         setStella('ALL');
       } else {
-        setCohort(tabId as CohortType);
+        setGen(tabId as GenType);
         setStella('ALL'); // 메인 탭 변경 시 서브탭은 ALL로 초기화
       }
     });
@@ -29,10 +29,10 @@ export const useVideoCategoryBar = () => {
   const handleSubTabChange = (tabId: string, subTabId: string) => {
     startTransition(() => {
       if (tabId === 'ALL') {
-        setCohort('ALL');
+        setGen('ALL');
         setStella('ALL');
       } else {
-        setCohort(tabId as CohortType);
+        setGen(tabId as GenType);
         setStella(subTabId as AllMember);
       }
     });
@@ -40,12 +40,12 @@ export const useVideoCategoryBar = () => {
 
   // 현재 활성 메인 탭 결정
   const getActiveTabId = (): string => {
-    return cohort;
+    return gen;
   };
 
   // 현재 활성 서브탭 결정
   const getActiveSubTabId = (): string => {
-    if (cohort === 'ALL' || stella === 'ALL') return 'ALL';
+    if (gen === 'ALL' || stella === 'ALL') return 'ALL';
     return stella;
   };
 
@@ -60,7 +60,7 @@ export const useVideoCategoryBar = () => {
     handleSubTabChange,
 
     // 원본 상태 (필요시 직접 접근 가능)
-    cohort,
+    gen,
     stella,
   };
 };

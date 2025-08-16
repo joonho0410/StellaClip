@@ -16,7 +16,7 @@ export const videoQueries = {
 
 // 공식채널 영상 필터 타입
 export interface HeroVideoFilters {
-  cohort?: string;
+  gen?: string;
   member?: string;
   search?: string;
   limit?: number;
@@ -31,7 +31,7 @@ export interface HeroVideoResponse {
 }
 
 // Mock 공식채널 매핑 (실제로는 데이터베이스나 API에서 가져와야 함)
-const COHORT_CHANNELS: Record<string, string[]> = {
+const GEN_CHANNELS: Record<string, string[]> = {
   'ALL': ['모든 공식채널'],
   '1기': ['1기 공식채널', '1기 멤버들'],
   '2기': ['2기 공식채널', '2기 멤버들'], 
@@ -55,9 +55,9 @@ const MEMBER_CHANNELS: Record<string, string> = {
 class HeroVideoService {
   // 공식채널 영상 조회 (실제로는 API 호출)
   static async getHeroVideos(filters: HeroVideoFilters): Promise<HeroVideoResponse> {
-    const { cohort = 'ALL', member, search, limit = 10 } = filters;
+    const { gen = 'ALL', member, search, limit = 10 } = filters;
 
-    // 실제 구현에서는 cohort와 member에 따라 특정 채널의 영상들을 필터링
+    // 실제 구현에서는 gen과 member에 따라 특정 채널의 영상들을 필터링
     let videos: VideoWithDetails[];
     
     if (search) {
@@ -68,7 +68,7 @@ class HeroVideoService {
       videos = await VideoService.getPublicVideos(limit);
     }
 
-    // cohort나 member 필터링 로직 (실제로는 데이터베이스 쿼리에서 처리)
+    // gen이나 member 필터링 로직 (실제로는 데이터베이스 쿼리에서 처리)
     let filteredVideos = videos;
     
     if (member && MEMBER_CHANNELS[member]) {
@@ -77,10 +77,10 @@ class HeroVideoService {
         video.user.fullName?.includes(member) || 
         video.user.username?.includes(member)
       );
-    } else if (cohort !== 'ALL' && COHORT_CHANNELS[cohort]) {
-      // 특정 기수의 영상만 필터링 (실제로는 사용자의 cohort 정보로 필터링)
+    } else if (gen !== 'ALL' && GEN_CHANNELS[gen]) {
+      // 특정 기수의 영상만 필터링 (실제로는 사용자의 gen 정보로 필터링)
       filteredVideos = videos.filter(() => {
-        // 예시: 사용자의 cohort 정보로 필터링
+        // 예시: 사용자의 gen 정보로 필터링
         return true; // 실제 구현 필요
       });
     }

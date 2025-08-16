@@ -3,187 +3,71 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
-model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  username  String?  @unique
-  fullName  String?
-  avatarUrl String?
-  
-  // Supabase Auth Integration
-  authId    String   @unique // This maps to Supabase auth.users.id
-  
-  // Timestamps
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  
-  // Relations
-  videos          Video[]
-  playlists       Playlist[]
-  comments        Comment[]
-  likes           Like[]
-  subscriptions   Subscription[] @relation("UserSubscriptions")
-  subscribers     Subscription[] @relation("UserSubscribers")
-  
-  @@map("users")
+model Member {
+  id               String        @id @default(cuid())
+  name             String        @unique
+  displayName      String
+  generation       Generation
+  hashtags         String
+  videoAppearances VideoMember[]
+
+  @@index([generation])
+  @@map("members")
 }
 
 model Video {
-  id          String   @id @default(cuid())
-  title       String
-  description String?
-  thumbnail   String?
-  videoUrl    String?
-  duration    Int? // Duration in seconds
-  views       Int      @default(0)
-  isPublic    Boolean  @default(true)
-  
-  // YouTube Integration
-  youtubeId   String?  @unique
-  youtubeUrl  String?
-  
-  // Timestamps
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  publishedAt DateTime?
-  
-  // Relations
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  tags        VideoTag[]
-  comments    Comment[]
-  likes       Like[]
-  playlistVideos PlaylistVideo[]
-  
+  id                String         @id @default(cuid())
+  videoId           String         @unique
+  title             String
+  description       String?
+  publishedAt       DateTime
+  thumbnailDefault  String?
+  thumbnailMedium   String?
+  thumbnailHigh     String?
+  channelId         String
+  channelTitle      String
+  isOfficial        Boolean        @default(false)
+  duration          String?
+  viewCount         Int?
+  likeCount         Int?
+  category          VideoCategory?
+  tags              String
+  sourceQuery       String?
+  crawledAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  memberAppearances VideoMember[]
+
+  @@index([isOfficial])
+  @@index([category])
+  @@index([publishedAt])
   @@map("videos")
 }
 
-model Playlist {
-  id          String   @id @default(cuid())
-  title       String
-  description String?
-  thumbnail   String?
-  isPublic    Boolean  @default(true)
-  
-  // Timestamps
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  
-  // Relations
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  videos      PlaylistVideo[]
-  
-  @@map("playlists")
-}
-
-model PlaylistVideo {
-  id         String   @id @default(cuid())
-  position   Int      @default(0)
-  
-  // Relations
-  playlistId String
-  playlist   Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
-  
-  videoId    String
-  video      Video    @relation(fields: [videoId], references: [id], onDelete: Cascade)
-  
-  // Timestamps
-  createdAt  DateTime @default(now())
-  
-  @@unique([playlistId, videoId])
-  @@map("playlist_videos")
-}
-
-model Tag {
-  id        String     @id @default(cuid())
-  name      String     @unique
-  color     String?    // Hex color for the tag
-  
-  // Timestamps
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  
-  // Relations
-  videos    VideoTag[]
-  
-  @@map("tags")
-}
-
-model VideoTag {
-  id      String @id @default(cuid())
-  
-  // Relations
-  videoId String
-  video   Video  @relation(fields: [videoId], references: [id], onDelete: Cascade)
-  
-  tagId   String
-  tag     Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
-  
-  @@unique([videoId, tagId])
-  @@map("video_tags")
-}
-
-model Comment {
+model VideoMember {
   id        String   @id @default(cuid())
-  content   String
-  
-  // Timestamps
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  
-  // Relations
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
   videoId   String
+  memberId  String
+  createdAt DateTime @default(now())
+  member    Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
   video     Video    @relation(fields: [videoId], references: [id], onDelete: Cascade)
-  
-  // Self-referencing for replies
-  parentId  String?
-  parent    Comment? @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
-  replies   Comment[] @relation("CommentReplies")
-  
-  @@map("comments")
+
+  @@unique([videoId, memberId])
+  @@index([memberId])
+  @@index([videoId])
+  @@map("video_members")
 }
 
-model Like {
-  id        String   @id @default(cuid())
-  
-  // Timestamps
-  createdAt DateTime @default(now())
-  
-  // Relations
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  videoId   String
-  video     Video    @relation(fields: [videoId], references: [id], onDelete: Cascade)
-  
-  @@unique([userId, videoId])
-  @@map("likes")
+enum VideoCategory {
+  CLIP
+  SHORTS
 }
 
-model Subscription {
-  id        String   @id @default(cuid())
-  
-  // Timestamps
-  createdAt DateTime @default(now())
-  
-  // Relations
-  subscriberId String
-  subscriber   User   @relation("UserSubscriptions", fields: [subscriberId], references: [id], onDelete: Cascade)
-  
-  subscribedToId String
-  subscribedTo   User   @relation("UserSubscribers", fields: [subscribedToId], references: [id], onDelete: Cascade)
-  
-  @@unique([subscriberId, subscribedToId])
-  @@map("subscriptions")
+enum Generation {
+  MYSTIC
+  UNIVERSE
+  CLICHE
 }

@@ -248,17 +248,22 @@ import { Button, Text, Stack } from '@/shared/ui';
 import { cn } from '@/shared/lib/utils';
 import { getColor, getSpacing } from '@/shared/lib/theme';
 
-// Business entities
+// Business entities (deprecated - use Server layer instead)
 import { VideoAPI } from '@/entities/video';
 import { UserAPI } from '@/entities/user';
+
+// New Server architecture
+import { VideoService, getServiceContainer } from '@/Server';
+import type { VideoDTO, CreateVideoDTO } from '@/Server';
 ```
 
 **Path Aliases:**
 - `@/shared/ui` - UI components
 - `@/shared/lib` - Utilities and helpers  
-- `@/entities` - Business entities
+- `@/entities` - Business entities (deprecated - migrate to @/Server)
 - `@/features` - Feature implementations
 - `@/views` - Page compositions
+- `@/Server` - Backend services and repositories
 
 ### 7. Development Workflow
 
@@ -280,19 +285,134 @@ import { UserAPI } from '@/entities/user';
 - Support keyboard navigation and accessibility
 - Follow React 19 patterns and concurrent features
 
-### 8. Database & API Integration
+### 8. Backend Architecture (Spring Boot MVC Pattern)
 
-**Prisma Schema Usage:**
-- Use existing entities: Video, User, Playlist, Comment, Tag
-- Extend schema through migrations, don't modify directly
-- Use centralized API calls from entities/
+**MANDATORY:** All backend logic must follow the Spring Boot MVC architectural pattern:
+
+```
+src/
+├── app/api/           # Controllers (Next.js API Routes)
+├── Server/            # Backend business logic
+│   ├── Service/       # Service layer (business logic)
+│   ├── Model/         # Repository layer (data access)
+│   └── types/         # DTOs and interfaces
+└── ...
+```
+
+**Architecture Layers:**
+
+1. **Controller Layer** (`src/app/api/`):
+   - Next.js API Routes acting as controllers
+   - Handle HTTP requests/responses
+   - Input validation and error handling
+   - Delegate business logic to Service layer
+   - **Example**: `src/app/api/videos/route.ts`
+
+2. **Service Layer** (`src/Server/Service/`):
+   - Business logic and workflow orchestration
+   - Transaction management
+   - Data transformation and validation
+   - Integration with external APIs
+   - **Example**: `src/Server/Service/VideoService.ts`
+
+3. **Repository/Model Layer** (`src/Server/Model/`):
+   - Data access layer using Prisma
+   - Database queries and operations
+   - Entity-specific CRUD operations
+   - **Example**: `src/Server/Model/VideoRepository.ts`
+
+**Backend Development Rules:**
+
+**Service Layer Guidelines:**
+```typescript
+// src/Server/Service/VideoService.ts
+export class VideoService {
+  constructor(private videoRepository: VideoRepository) {}
+  
+  async createVideo(data: CreateVideoDTO): Promise<VideoDTO> {
+    // Business logic validation
+    // Transaction management
+    // Call repository methods
+  }
+}
+```
+
+**Repository Pattern:**
+```typescript
+// src/Server/Model/VideoRepository.ts
+export class VideoRepository {
+  constructor(private prisma: PrismaClient) {}
+  
+  async findById(id: string): Promise<Video | null> {
+    return this.prisma.video.findUnique({ where: { id } })
+  }
+}
+```
+
+**Controller Pattern:**
+```typescript
+// src/app/api/videos/route.ts
+import { VideoService } from '@/Server/Service/VideoService'
+
+export async function GET(request: Request) {
+  const videoService = new VideoService()
+  const videos = await videoService.getPublicVideos()
+  return Response.json(videos)
+}
+```
+
+**Dependency Injection:**
+- Use constructor injection for services and repositories
+- Create service instances in API routes or use a DI container
+- Maintain singleton Prisma client instance
+
+**Database & ORM Integration:**
+
+**Prisma Usage:**
+- Repository layer exclusively uses Prisma for database access
+- Service layer never directly calls Prisma methods
+- Use existing entities: Video, Member, VideoMember
+- Extend schema through migrations, not direct modifications
+
+**Data Flow:**
+```
+Client Request → API Route (Controller) → Service → Repository → Prisma → Database
+Client Response ← API Route (Controller) ← Service ← Repository ← Prisma ← Database
+```
 
 **Supabase Integration:**
 - Authentication via `@/shared/lib/supabase/`
 - Row Level Security policies
 - Real-time subscriptions for live features
 
-### 9. Forbidden Practices
+### 9. Backend Migration Guidelines
+
+**Migrating from entities/ to Server/:**
+- **Phase 1**: Create new service and repository classes in `src/Server/`
+- **Phase 2**: Update API routes to use new service layer
+- **Phase 3**: Deprecated `entities/` folder (keep for backward compatibility)
+- **Phase 4**: Remove entities/ imports after full migration
+
+**New Backend File Structure:**
+```
+src/Server/
+├── Service/
+│   ├── VideoService.ts
+│   ├── MemberService.ts
+│   └── AuthService.ts
+├── Model/
+│   ├── VideoRepository.ts
+│   ├── MemberRepository.ts
+│   └── BaseRepository.ts
+└── types/
+    ├── dto/
+    │   ├── VideoDTO.ts
+    │   └── MemberDTO.ts
+    └── interfaces/
+        └── ServiceInterfaces.ts
+```
+
+### 10. Forbidden Practices
 
 **DO NOT:**
 - Install new npm packages without permission
@@ -302,8 +422,11 @@ import { UserAPI } from '@/entities/user';
 - Break FSD architecture patterns
 - Create files outside the established structure
 - Use non-TypeScript files for components
+- **Put business logic in API routes (use Service layer)**
+- **Call Prisma directly from Service layer (use Repository)**
+- **Mix data access logic with business logic**
 
-### 10. Testing & Quality Assurance
+### 11. Testing & Quality Assurance
 
 **Required Commands:**
 ```bash

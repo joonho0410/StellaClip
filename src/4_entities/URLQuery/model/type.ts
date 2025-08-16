@@ -1,12 +1,12 @@
-import type { AllMember, CohortType } from '@/4_entities/stella';
+import type { AllMember, GenType } from '@/4_entities/stella';
 
-export type CohortQueryType = 'ALL' | CohortType;
+export type GenQueryType = 'ALL' | GenType;
 export type StellaQueryType = 'ALL' | AllMember;
 
 export type VideoSortType = 'Date';
 
 export interface VideoSearchParameterType {
-  cohort: CohortQueryType;
+  gen: GenQueryType;
   stella: StellaQueryType;
   page: number;
   sort?: VideoSortType;

@@ -191,9 +191,42 @@ export function HomePage() {
   const [activeSection, setActiveSection] =
     useState<keyof typeof videoSections>('trending');
   const [currentVideo, setCurrentVideo] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [crawlStatus, setCrawlStatus] = useState<string>('');
 
   const handleVideoClick = (videoId: string) => {
     setCurrentVideo(videoId);
+  };
+
+  const handleCrawlVideos = async () => {
+    setIsLoading(true);
+    setCrawlStatus('비디오 데이터를 수집 중...');
+    
+    try {
+      const response = await fetch('/api/test/official/yuni', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      if (data.error) {
+        setCrawlStatus(`오류: ${data.error}`);
+      } else {
+        setCrawlStatus(`성공! ${data.videosProcessed}개의 비디오가 데이터베이스에 저장되었습니다.`);
+      }
+    } catch (error) {
+      console.error('Error crawling videos:', error);
+      setCrawlStatus('비디오 수집 중 오류가 발생했습니다.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const sections = Object.values(videoSections);
@@ -244,17 +277,41 @@ export function HomePage() {
                 </div>
               </div>
 
-              <div className="flex gap-4">
-                <Button
-                  variant="primary"
-                  size="lg"
-                  onClick={() => handleVideoClick(heroVideo.id)}
-                >
-                  ▶ 지금 시청하기
-                </Button>
-                <Button variant="ghost" size="lg">
-                  더 살펴보기
-                </Button>
+              <div className="flex flex-col gap-4">
+                <div className="flex gap-4">
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    onClick={() => handleVideoClick(heroVideo.id)}
+                  >
+                    ▶ 지금 시청하기
+                  </Button>
+                  <Button variant="ghost" size="lg">
+                    더 살펴보기
+                  </Button>
+                </div>
+                
+                {/* YouTube 크롤링 버튼 */}
+                <div className="flex flex-col gap-2">
+                  <Button
+                    variant="secondary"
+                    size="lg"
+                    onClick={handleCrawlVideos}
+                    disabled={isLoading}
+                    className="w-fit"
+                  >
+                    {isLoading ? '수집 중...' : '🔄 유니 채널 비디오 수집'}
+                  </Button>
+                  {crawlStatus && (
+                    <Text 
+                      size="small" 
+                      color={crawlStatus.includes('성공') ? 'primary' : crawlStatus.includes('오류') ? 'tertiary' : 'secondary'}
+                      className="max-w-md"
+                    >
+                      {crawlStatus}
+                    </Text>
+                  )}
+                </div>
               </div>
             </div>
 

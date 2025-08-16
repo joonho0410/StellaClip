@@ -65,3 +65,69 @@ export interface YouTubeSearchResult {
   id: YouTubeVideoId;
   snippet?: YouTubeSnippet;
 }
+
+// YouTube Video Details API Response Types
+export interface YouTubeVideoDetailsResponse {
+  kind: 'youtube#videoListResponse';
+  etag: string;
+  items: YouTubeVideoDetails[];
+  pageInfo: YouTubePageInfo;
+}
+
+export interface YouTubeVideoDetails {
+  kind: 'youtube#video';
+  etag: string;
+  id: string;
+  snippet: YouTubeVideoSnippet;
+  statistics: YouTubeVideoStatistics;
+}
+
+export interface YouTubeVideoSnippet {
+  publishedAt: string;
+  channelId: string;
+  title: string;
+  description: string;
+  thumbnails: YouTubeVideoThumbnails;
+  channelTitle: string;
+  tags?: string[];
+  categoryId: string;
+  liveBroadcastContent: string;
+  localized: {
+    title: string;
+    description: string;
+  };
+  defaultAudioLanguage?: string;
+}
+
+export interface YouTubeVideoThumbnails {
+  default: YouTubeThumbnail;
+  medium: YouTubeThumbnail;
+  high: YouTubeThumbnail;
+  standard?: YouTubeThumbnail;
+  maxres?: YouTubeThumbnail;
+}
+
+export interface YouTubeVideoStatistics {
+  viewCount: string;
+  likeCount: string;
+  favoriteCount: string;
+  commentCount: string;
+}
+
+// Prisma Video model을 위한 변환된 타입
+export interface VideoCreateInput {
+  videoId: string;
+  title: string;
+  description?: string;
+  publishedAt: Date;
+  thumbnailDefault?: string;
+  thumbnailMedium?: string;
+  thumbnailHigh?: string;
+  channelId: string;
+  channelTitle: string;
+  isOfficial?: boolean;
+  viewCount?: number;
+  likeCount?: number;
+  tags: string; // JSON string
+  sourceQuery?: string;
+}

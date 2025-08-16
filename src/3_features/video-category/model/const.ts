@@ -21,9 +21,9 @@ function makeSubTabs(members: readonly AllMember[]): Tab['subTabs'] {
  */
 export const videoCategories: Tab[] = [
   { id: 'ALL', label: 'ALL' },
-  ...Object.entries(stellaMembers).map(([cohort, members]) => ({
-    id: cohort,
-    label: cohort,
+  ...Object.entries(stellaMembers).map(([gen, members]) => ({
+    id: gen,
+    label: gen,
     subTabs: makeSubTabs(members),
   })),
 ];

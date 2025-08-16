@@ -3,7 +3,7 @@ import { create } from 'zustand';
 import { updateUrlParams } from '@/shared/lib/query-params';
 import type {
   StellaQueryType,
-  CohortQueryType,
+  GenQueryType,
 } from '@/4_entities/URLQuery/model/type';
 import type {
   VideoSearchParameterType,
@@ -11,7 +11,7 @@ import type {
 } from '@/4_entities/URLQuery/model/type';
 
 interface VideoSearchState extends VideoSearchParameterType {
-  setCohort: (cohort: CohortQueryType) => void;
+  setGen: (gen: GenQueryType) => void;
   setStella: (stella: StellaQueryType) => void;
   setPage: (page: number) => void;
   setSort: (sort?: VideoSortType) => void;
@@ -19,15 +19,15 @@ interface VideoSearchState extends VideoSearchParameterType {
 }
 
 export const useVideoSearchStore = create<VideoSearchState>((set) => ({
-  cohort: 'ALL',
+  gen: 'ALL',
   stella: 'ALL',
   page: 1,
   sort: undefined,
   maxResult: 5,
 
-  setCohort: (cohort) => {
-    set({ cohort });
-    updateUrlParams({ cohort });
+  setGen: (gen) => {
+    set({ gen });
+    updateUrlParams({ gen });
   },
   setStella: (stella) => {
     set({ stella });
@@ -49,14 +49,14 @@ export const useVideoSearchStore = create<VideoSearchState>((set) => ({
 
 // Widget별 선택적 구독을 위한 selector hooks
 
-// cohort와 stella만 필요한 widget용
-export const useCohortStella = () => {
-  const cohort = useVideoSearchStore((state) => state.cohort);
+// gen과 stella만 필요한 widget용
+export const useGenStella = () => {
+  const gen = useVideoSearchStore((state) => state.gen);
   const stella = useVideoSearchStore((state) => state.stella);
-  const setCohort = useVideoSearchStore((state) => state.setCohort);
+  const setGen = useVideoSearchStore((state) => state.setGen);
   const setStella = useVideoSearchStore((state) => state.setStella);
 
-  return { cohort, stella, setCohort, setStella };
+  return { gen, stella, setGen, setStella };
 };
 
 // 전체 state가 필요한 widget용
