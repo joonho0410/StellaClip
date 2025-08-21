@@ -352,7 +352,7 @@ export class VideoRepository {
 **Controller Pattern:**
 ```typescript
 // src/app/api/videos/route.ts
-import { VideoService } from '@/Server/Service/VideoService'
+import { VideoService } from '@/Server/Service/VideoService/VideoService'
 
 export async function GET(request: Request) {
   const videoService = new VideoService()
@@ -402,8 +402,7 @@ src/Server/
 │   └── AuthService.ts
 ├── Model/
 │   ├── VideoRepository.ts
-│   ├── MemberRepository.ts
-│   └── BaseRepository.ts
+│   └── MemberRepository.ts
 └── types/
     ├── dto/
     │   ├── VideoDTO.ts

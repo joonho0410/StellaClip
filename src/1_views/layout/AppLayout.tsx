@@ -1,9 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { QueryProvider } from '@/5_shared/lib/react-query';
 import { useCurrentVideo } from '@/4_entities/video';
 import { VideoSideBar } from '@/3_features/video-sidebar';
 import { VideoCategoryBar } from '@/3_features/video-category';
+import { Header } from '@/5_shared/ui/header';
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -29,32 +31,33 @@ export function AppLayout({ children }: AppLayoutProps) {
   const isPanelOpen = !!currentVideo;
 
   return (
-    <div className="h-screen flex relative overflow-hidden">
-      {/* VideoSideBar - Positioned on the left */}
-      <VideoSideBar 
-        onWidthChange={setPanelWidth}
-        onFullScreenChange={setIsPanelFullScreen}
-      />
-      
-      {/* Main Content Area */}
-      <div 
-        className={`@container transition-all duration-300 ease-out flex flex-col ${
-          isPanelOpen ? 'flex-1' : 'w-full'
-        }`}
-        style={{
-          marginLeft: isPanelOpen && !isMobile && !isPanelFullScreen ? `${panelWidth}px` : '0',
-        }}
-      >
-        {/* Fixed Header with VideoCategoryBar */}
-        <header className="sticky top-0 z-40 bg-[var(--color-bg-primary)] border-b border-[var(--color-border-primary)] backdrop-blur-sm bg-opacity-95">
+    <QueryProvider>
+      <div className="h-screen flex relative overflow-hidden">
+        <Header>
           <VideoCategoryBar />
-        </header>
-        
-        {/* Main Content */}
-        <div className="flex-1 overflow-y-auto">
-          {children}
+        </Header>
+        {/* VideoSideBar - Positioned on the left */}
+        <VideoSideBar
+          onWidthChange={setPanelWidth}
+          onFullScreenChange={setIsPanelFullScreen}
+        />
+
+        {/* Main Content Area */}
+        <div
+          className={`@container transition-all duration-300 ease-out flex flex-col ${
+            isPanelOpen ? 'flex-1' : 'w-full'
+          }`}
+          style={{
+            marginLeft:
+              isPanelOpen && !isMobile && !isPanelFullScreen
+                ? `${panelWidth}px`
+                : '0',
+          }}
+        >
+          {/* Main Content */}
+          <div className="flex-1 overflow-y-auto">{children}</div>
         </div>
       </div>
-    </div>
+    </QueryProvider>
   );
 }

@@ -146,6 +146,118 @@ export class VideoRepository {
   }
 
   /**
+   * Find videos by Stella member name with pagination and filtering
+   */
+  async findByStellaMember(
+    stellaName: string,
+    params: PaginationParams & { isOfficial?: boolean }
+  ): Promise<{ videos: Video[]; total: number }> {
+    // Handle 'ALL' case to get all videos
+    const whereCondition: any = {};
+
+    if (stellaName.toUpperCase() !== 'ALL') {
+      whereCondition.memberAppearances = {
+        some: {
+          member: {
+            name: stellaName.toUpperCase(), // Use uppercase to match database
+          },
+        },
+      };
+    }
+
+    // Add official filter if specified
+    if (params.isOfficial !== undefined) {
+      whereCondition.isOfficial = params.isOfficial;
+    }
+
+    // Get total count for pagination
+    const total = await this.prisma.video.count({
+      where: whereCondition,
+    });
+
+    // Get videos with pagination
+    const videos = await this.prisma.video.findMany({
+      where: whereCondition,
+      include: {
+        memberAppearances: {
+          include: {
+            member: true,
+          },
+        },
+      },
+      orderBy: [
+        {
+          publishedAt: 'desc',
+        },
+        {
+          viewCount: 'desc',
+        },
+      ],
+      take: params.limit,
+      skip: params.offset,
+    });
+
+    return { videos, total };
+  }
+
+  /**
+   * Find videos by Generation with pagination and filtering
+   */
+  async findByGeneration(
+    genName: string,
+    params: PaginationParams & { isOfficial?: boolean }
+  ): Promise<{ videos: Video[]; total: number }> {
+    // Handle 'ALL' case to get all videos
+    const whereCondition: any = {};
+
+    if (genName.toUpperCase() !== 'ALL') {
+      // Convert genName to uppercase to match database enum
+      const normalizedGen = genName.toUpperCase();
+      whereCondition.memberAppearances = {
+        some: {
+          member: {
+            generation: normalizedGen,
+          },
+        },
+      };
+    }
+
+    // Add official filter if specified
+    if (params.isOfficial !== undefined) {
+      whereCondition.isOfficial = params.isOfficial;
+    }
+
+    // Get total count for pagination
+    const total = await this.prisma.video.count({
+      where: whereCondition,
+    });
+
+    // Get videos with pagination
+    const videos = await this.prisma.video.findMany({
+      where: whereCondition,
+      include: {
+        memberAppearances: {
+          include: {
+            member: true,
+          },
+        },
+      },
+      orderBy: [
+        {
+          publishedAt: 'desc',
+        },
+        {
+          viewCount: 'desc',
+        },
+      ],
+      take: params.limit,
+      skip: params.offset,
+    });
+
+    return { videos, total };
+  }
+
+  /**
    * Create new video
    */
   async create(data: CreateVideoDTO): Promise<Video> {
@@ -254,6 +366,7 @@ export class VideoRepository {
         thumbnailHigh: data.thumbnailHigh,
         channelTitle: data.channelTitle,
         isOfficial: data.isOfficial ?? false,
+        duration: data.duration,
         viewCount: data.viewCount,
         likeCount: data.likeCount,
         tags: data.tags,

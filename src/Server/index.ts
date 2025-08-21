@@ -4,14 +4,17 @@
  */
 
 // Service Container
-export { ServiceContainer, getServiceContainer } from './ServiceContainer';
+export {
+  ServiceContainer,
+  getServiceContainer,
+} from './Service/ServiceContainer';
 
 // Services
-export { VideoService } from './Service/VideoService';
+export { VideoService } from './Service/VideoService/VideoService';
+export { YouTubeService } from './Service/youtubeService/YouTubeService';
 
 // Repositories
 export { VideoRepository } from './Model/VideoRepository';
-export { BaseRepository } from './Model/BaseRepository';
 
 // Types and DTOs
 export type {
@@ -32,3 +35,11 @@ export type {
   ServiceContext,
   CacheOptions,
 } from './types/interfaces/ServiceInterfaces';
+
+export type {
+  YouTubeSearchResponse,
+  YouTubeVideoDetailsResponse,
+  YouTubeVideoDetails,
+  YouTubeChannelProcessResult,
+  YouTubeBatchProcessResult,
+} from './types/dto/YouTubeDTO';

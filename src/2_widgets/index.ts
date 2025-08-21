@@ -1,1 +1,1 @@
-export * from './hero-video-section';
+export * from './hero-section';

@@ -52,6 +52,7 @@ export interface CreateVideoDTO {
   category?: 'CLIP' | 'SHORTS';
   tags: string;
   sourceQuery?: string;
+  memberNames?: string[]; // Array of member names that appear in the video
 }
 
 export interface UpdateVideoDTO {

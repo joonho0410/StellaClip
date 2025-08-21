@@ -9,16 +9,11 @@ interface VideoCategoryBarProps {
 
 /**
  * 비디오 카테고리를 위한 특화된 CategoryBar
- * URLQuery 상태와 연동되어 동작
+ * zustand category store와 연동되어 동작
  */
 export const VideoCategoryBar = ({ className }: VideoCategoryBarProps) => {
-  const { 
-    isPending, 
-    activeTabId, 
-    activeSubTabId, 
-    handleTabChange, 
-    handleSubTabChange 
-  } = useVideoCategoryBar();
+  const { activeTabId, activeSubTabId, handleTabChange, handleSubTabChange } =
+    useVideoCategoryBar();
 
   return (
     <CategoryBar

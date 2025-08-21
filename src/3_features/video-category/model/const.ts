@@ -1,5 +1,5 @@
-import { stellaMembers } from '@/4_entities/stella';
-import type { AllMember } from '@/4_entities/stella';
+import { stellaMembers } from '@/4_entities/member';
+import type { AllMember } from '@/4_entities/member';
 import type { Tab } from '@/shared/ui/category-bar';
 
 /**

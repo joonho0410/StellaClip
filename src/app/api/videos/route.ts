@@ -1,21 +1,10 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { VideoService } from '@/4_entities/video';
-import { AuthService } from '@/shared/api';
+import { NextResponse } from 'next/server';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const { searchParams } = new URL(request.url);
-    const limit = parseInt(searchParams.get('limit') || '20');
-    const offset = parseInt(searchParams.get('offset') || '0');
-    const search = searchParams.get('search');
 
-    let videos;
-
-    if (search) {
-      videos = await VideoService.searchVideos(search, limit);
-    } else {
-      videos = await VideoService.getPublicVideos(limit, offset);
-    }
+    // Temporarily disabled - methods not available
+    const videos: never[] = [];
 
     return NextResponse.json({ videos });
   } catch (error) {
@@ -27,27 +16,15 @@ export async function GET(request: NextRequest) {
   }
 }
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   try {
-    const user = await AuthService.requireAuth();
-    const body = await request.json();
-
-    const video = await VideoService.createVideo({
-      ...body,
-      userId: user.id,
-    });
-
-    return NextResponse.json({ video }, { status: 201 });
+    // Temporarily disabled - authentication and video creation not available
+    return NextResponse.json(
+      { error: 'Video creation not implemented' },
+      { status: 501 }
+    );
   } catch (error) {
     console.error('Error creating video:', error);
-
-    if (error instanceof Error && error.message === 'Authentication required') {
-      return NextResponse.json(
-        { error: 'Authentication required' },
-        { status: 401 }
-      );
-    }
-
     return NextResponse.json(
       { error: 'Failed to create video' },
       { status: 500 }

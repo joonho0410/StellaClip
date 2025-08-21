@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { QueryProvider } from "@/shared/lib/react-query";
 import { AppLayout } from "@/1_views/layout";
 import "../styles/globals.css";
 
@@ -23,11 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="antialiased">
-        <QueryProvider>
-          <AppLayout>
-            {children}
-          </AppLayout>
-        </QueryProvider>
+        <AppLayout>
+          {children}
+        </AppLayout>
       </body>
     </html>
   );

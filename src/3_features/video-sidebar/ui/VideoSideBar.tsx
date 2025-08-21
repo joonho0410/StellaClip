@@ -18,8 +18,6 @@ export const VideoSideBar = ({
 }: VideoSideBarProps) => {
   const { currentVideo, setCurrentVideo } = useCurrentVideo();
   const [isMobile, setIsMobile] = useState(false);
-  const [panelWidth, setPanelWidth] = useState(600);
-  const [isPanelFullScreen, setIsPanelFullScreen] = useState(false);
 
   // Check if screen is mobile size
   useEffect(() => {
@@ -57,12 +55,10 @@ export const VideoSideBar = ({
   };
 
   const handlePanelWidthChange = (width: number) => {
-    setPanelWidth(width);
     onWidthChange?.(width);
   };
 
   const handlePanelFullScreenChange = (isFullScreen: boolean) => {
-    setIsPanelFullScreen(isFullScreen);
     onFullScreenChange?.(isFullScreen);
   };
 
