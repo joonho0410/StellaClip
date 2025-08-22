@@ -11,12 +11,10 @@ export interface VideoCardWithPanelProps extends VideoCardProps {
   onShare?: () => void;
   onSave?: () => void;
   enablePanel?: boolean;
-  fullScreenOnMobile?: boolean;
 }
 
 export function VideoCardWithPanel({
   enablePanel = true,
-  fullScreenOnMobile = true,
   onChannelClick,
   onTagClick,
   onShare,
@@ -84,7 +82,6 @@ export function VideoCardWithPanel({
           isOpen={isOpen}
           onClose={handleClose}
           title={videoProps.title}
-          fullScreenOnMobile={fullScreenOnMobile}
         >
           <VideoDetailPanel
             video={videoDetailData}

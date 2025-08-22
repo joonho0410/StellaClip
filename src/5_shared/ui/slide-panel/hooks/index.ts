@@ -1,0 +1,1 @@
+export { useResizeWidth } from './useResizeWidth';

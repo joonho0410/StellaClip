@@ -80,7 +80,7 @@ export function CategoryBar({
     <div className={cn('w-full', className)}>
       {/* Main Tabs */}
       <div className="border-b border-[var(--salt-color-border-subtle)]">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto">
           <div className="flex gap-1 overflow-x-auto pb-0 scrollbar-hide">
             {tabs.map((tab) => {
               const isActive = currentActiveTab === tab.id;

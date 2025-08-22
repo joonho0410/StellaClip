@@ -1,6 +1,7 @@
 import { cn } from '@/5_shared/lib/utils';
 import { Skeleton } from '@/5_shared/ui/skeleton';
 import { Card } from '@/5_shared/ui/card';
+import { Container } from '@/5_shared/ui/container';
 
 interface HeroSectionSkeletonProps {
   className?: string;
@@ -8,12 +9,8 @@ interface HeroSectionSkeletonProps {
 
 export function HeroSectionSkeleton({ className }: HeroSectionSkeletonProps) {
   return (
-    <div
-      className={cn(
-        'w-full max-w-7xl mx-auto px-2 sm:px-4 py-2 sm:py-4 mb-4 sm:mb-8',
-        className
-      )}
-    >
+    <section className={cn('py-2 sm:py-4 mb-4 sm:mb-8', className)}>
+      <Container size="xl" className="px-2 sm:px-4">
       <Card variant="elevated" padding="none" className="overflow-hidden">
         <div className="p-3 sm:p-4 lg:p-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 lg:gap-8 xl:gap-12 items-start">
@@ -100,6 +97,7 @@ export function HeroSectionSkeleton({ className }: HeroSectionSkeletonProps) {
           </div>
         </div>
       </Card>
-    </div>
+      </Container>
+    </section>
   );
 }

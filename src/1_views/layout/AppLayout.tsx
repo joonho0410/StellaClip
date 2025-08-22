@@ -12,50 +12,19 @@ interface AppLayoutProps {
 }
 
 export function AppLayout({ children }: AppLayoutProps) {
-  const { currentVideo } = useCurrentVideo();
-  const [isMobile, setIsMobile] = useState(false);
-  const [panelWidth, setPanelWidth] = useState(600);
-  const [isPanelFullScreen, setIsPanelFullScreen] = useState(false);
-
-  // Check if screen is mobile size
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768); // md breakpoint
-    };
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  const isPanelOpen = !!currentVideo;
-
   return (
     <QueryProvider>
       <div className="h-screen flex relative overflow-hidden">
-        <Header>
-          <VideoCategoryBar />
-        </Header>
-        {/* VideoSideBar - Positioned on the left */}
-        <VideoSideBar
-          onWidthChange={setPanelWidth}
-          onFullScreenChange={setIsPanelFullScreen}
-        />
-
-        {/* Main Content Area */}
+        <VideoSideBar />
         <div
-          className={`@container transition-all duration-300 ease-out flex flex-col ${
-            isPanelOpen ? 'flex-1' : 'w-full'
-          }`}
-          style={{
-            marginLeft:
-              isPanelOpen && !isMobile && !isPanelFullScreen
-                ? `${panelWidth}px`
-                : '0',
-          }}
+          className={`@container transition-all duration-300 ease-out flex items-center flex-col w-full`}
         >
-          {/* Main Content */}
-          <div className="flex-1 overflow-y-auto">{children}</div>
+          <Header>
+            <VideoCategoryBar />
+          </Header>
+          <div className="flex-1 overflow-y-auto overflow-x-auto w-full">
+            {children}
+          </div>
         </div>
       </div>
     </QueryProvider>

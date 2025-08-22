@@ -1,4 +1,5 @@
 import { cn } from '@/5_shared/lib/utils';
+import { Container } from '@/5_shared/ui/container';
 
 interface HeroSectionErrorProps {
   className?: string;
@@ -8,8 +9,9 @@ interface HeroSectionErrorProps {
 
 export function HeroSectionError({ className, error, onRetry }: HeroSectionErrorProps) {
   return (
-    <div className={cn('w-full max-w-6xl mx-auto p-4 mb-8', className)}>
-      <div className="rounded-lg overflow-hidden shadow-lg h-[400px] bg-red-50 border border-red-200 flex flex-col items-center justify-center space-y-4">
+    <section className={cn('py-4 mb-8', className)}>
+      <Container size="lg" className="px-4">
+        <div className="rounded-lg overflow-hidden shadow-lg h-[400px] bg-red-50 border border-red-200 flex flex-col items-center justify-center space-y-4">
         {/* Error Icon */}
         <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
           <svg 
@@ -46,7 +48,8 @@ export function HeroSectionError({ className, error, onRetry }: HeroSectionError
           </svg>
           다시 시도
         </button>
-      </div>
-    </div>
+        </div>
+      </Container>
+    </section>
   );
 }
