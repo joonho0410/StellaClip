@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { cn } from '@/shared/lib/utils';
+import { cn } from '@/5_shared/lib/utils';
 import { Heading, Text } from '../typography';
 import { Button, IconButton } from '../button';
 import { VideoGrid } from '../video-grid';
-import { VideoCard, VideoCardProps } from '../video-card';
+import { VideoCard, VideoCardProps } from '@/4_entities/video/ui';
 
 export interface CategorySectionProps {
   title: string;

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import type { VideoItem } from '../../types';
+import type { VideoItem } from '../types';
 
 interface VideoThumbnailProps {
   video: VideoItem;
@@ -22,7 +22,7 @@ export const VideoThumbnail = ({
       <Image
         // thumbnail의 경우에 해상도를 여러 방식으로 받아 올 수 있도록 해야한다.
         src={
-          video.thumbnail?.replace('hqdefault', 'maxresdefault') ||
+          video.thumbnails?.high?.url || video.thumbnails?.medium?.url || video.thumbnails?.default?.url || video.thumbnail ||
           '/placeholder-video.jpg'
         }
         alt={video.title}

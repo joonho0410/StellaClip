@@ -26,17 +26,29 @@ export interface VideoDTO {
   videoId: string;
   title: string;
   description: string | null;
-  publishedAt: string;
-  thumbnailDefault: string | null;
-  thumbnailMedium: string | null;
-  thumbnailHigh: string | null;
+  thumbnail: string;
   channelId: string;
   channelTitle: string;
+  publishedAt: string;
   isOfficial: boolean;
   viewCount: number | null;
   likeCount: number | null;
   tags: string;
-  sourceQuery: string | null;
-  createdAt: string;
-  updatedAt: string;
+  thumbnails: {
+    default: {
+      url: string;
+      width: number;
+      height: number;
+    };
+    medium?: {
+      url: string;
+      width: number;
+      height: number;
+    };
+    high?: {
+      url: string;
+      width: number;
+      height: number;
+    };
+  };
 }

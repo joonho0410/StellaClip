@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { VideoCard, VideoCardProps } from '../video-card';
+import { VideoCard, VideoCardProps } from '@/4_entities/video/ui';
 import { SlidePanel } from '../slide-panel';
 import { VideoDetailPanel, VideoDetailData } from '../video-detail-panel';
 
@@ -63,8 +63,14 @@ export function VideoCardWithPanel({
     quality: videoProps.quality,
     description: videoProps.description,
     youtubeId: videoProps.youtubeId,
-    tags: videoProps.tags,
-    likeCount: videoProps.likeCount,
+    tags: videoProps.tags ? (() => {
+      try {
+        return JSON.parse(videoProps.tags);
+      } catch {
+        return [videoProps.tags];
+      }
+    })() : undefined,
+    likeCount: videoProps.likeCount?.toString(),
     dislikeCount: videoProps.dislikeCount,
   };
 

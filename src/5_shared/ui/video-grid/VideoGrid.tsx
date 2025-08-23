@@ -1,5 +1,5 @@
 import React from 'react';
-import { VideoCard, VideoCardProps } from '../video-card';
+import { VideoCard, VideoCardProps } from '@/4_entities/video/ui';
 import { Grid } from '../layout';
 
 export interface VideoGridProps {

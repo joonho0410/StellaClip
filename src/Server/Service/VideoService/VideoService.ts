@@ -1,7 +1,11 @@
 import { VideoRepository } from '../../Model/VideoRepository';
 import { MemberRepository } from '../../Model/MemberRepository';
 import { VideoMemberRepository } from '../../Model/VideoMemberRepository';
-import type { CreateVideoDTO, UpdateVideoDTO, VideoDTO } from '../../types/dto/VideoDTO';
+import type {
+  CreateVideoDTO,
+  UpdateVideoDTO,
+  VideoDTO,
+} from '../../types/dto/VideoDTO';
 import type { PaginationParams } from '../../types/interfaces/ServiceInterfaces';
 
 /**
@@ -72,7 +76,9 @@ export class VideoService {
     }
 
     // Check for duplicates
-    const existingVideo = await this.videoRepository.findByVideoId(data.videoId);
+    const existingVideo = await this.videoRepository.findByVideoId(
+      data.videoId
+    );
     if (existingVideo) {
       throw new Error('Video with this YouTube ID already exists');
     }
@@ -152,11 +158,14 @@ export class VideoService {
     const offset = (params.page - 1) * params.limit;
 
     // Search videos through repository
-    const result = await this.videoRepository.findByStellaMember(params.stellaName, {
-      limit: params.limit,
-      offset,
-      isOfficial: params.isOfficial,
-    });
+    const result = await this.videoRepository.findByStellaMember(
+      params.stellaName,
+      {
+        limit: params.limit,
+        offset,
+        isOfficial: params.isOfficial,
+      }
+    );
 
     return {
       videos: result.videos.map(this.mapToDTO),
@@ -195,20 +204,14 @@ export class VideoService {
   }
 
   /**
-   * Increment video view count
-   */
-  async incrementViews(id: string): Promise<VideoDTO> {
-    const video = await this.videoRepository.incrementViews(id);
-    return this.mapToDTO(video);
-  }
-
-  /**
    * Upsert video from YouTube API
    */
   async upsertFromYouTube(data: CreateVideoDTO): Promise<VideoDTO> {
     // Business logic for YouTube data validation
     if (!data.channelId || !data.videoId) {
-      throw new Error('Channel ID and Video ID are required for YouTube videos');
+      throw new Error(
+        'Channel ID and Video ID are required for YouTube videos'
+      );
     }
 
     const video = await this.videoRepository.upsert(data);
@@ -228,7 +231,9 @@ export class VideoService {
   /**
    * Batch upsert videos from YouTube API
    */
-  async batchUpsertFromYouTube(videosData: CreateVideoDTO[]): Promise<VideoDTO[]> {
+  async batchUpsertFromYouTube(
+    videosData: CreateVideoDTO[]
+  ): Promise<VideoDTO[]> {
     // Business logic validation for batch operation
     if (videosData.length === 0) {
       return [];
@@ -240,7 +245,7 @@ export class VideoService {
 
     // Use individual upsert calls to ensure member relationships are handled
     const results = await Promise.allSettled(
-      videosData.map(videoData => this.upsertFromYouTube(videoData))
+      videosData.map((videoData) => this.upsertFromYouTube(videoData))
     );
 
     const videos: VideoDTO[] = [];
@@ -250,13 +255,18 @@ export class VideoService {
       if (result.status === 'fulfilled') {
         videos.push(result.value);
       } else {
-        console.error(`Failed to upsert video ${videosData[index].videoId}:`, result.reason);
+        console.error(
+          `Failed to upsert video ${videosData[index].videoId}:`,
+          result.reason
+        );
         errors.push(result.reason);
       }
     });
 
     if (errors.length > 0) {
-      console.warn(`${errors.length}/${videosData.length} videos failed to upsert`);
+      console.warn(
+        `${errors.length}/${videosData.length} videos failed to upsert`
+      );
     }
 
     return videos;
@@ -266,14 +276,21 @@ export class VideoService {
    * Create video-member relationships based on member names
    * Looks up member IDs by name and creates relationships in videoMember table
    */
-  private async createVideoMemberRelationships(videoId: string, memberNames: string[]): Promise<void> {
+  private async createVideoMemberRelationships(
+    videoId: string,
+    memberNames: string[]
+  ): Promise<void> {
     // Remove duplicates and normalize names to uppercase
-    const uniqueNames = [...new Set(memberNames.map(name => name.trim().toUpperCase()))];
-    
+    const uniqueNames = [
+      ...new Set(memberNames.map((name) => name.trim().toUpperCase())),
+    ];
+
     // Find all members by name (findByName already normalizes to uppercase)
-    const memberPromises = uniqueNames.map(name => this.memberRepository.findByName(name));
+    const memberPromises = uniqueNames.map((name) =>
+      this.memberRepository.findByName(name)
+    );
     const members = await Promise.all(memberPromises);
-    
+
     // Filter out null results and log missing members
     const validMembers = members.filter((member, index) => {
       if (!member) {
@@ -282,21 +299,23 @@ export class VideoService {
       }
       return true;
     });
-    
+
     if (validMembers.length === 0) {
       console.warn('No valid members found for video relationships');
       return;
     }
-    
+
     // Create video-member relationships
-    const relationships = validMembers.map(member => ({
+    const relationships = validMembers.map((member) => ({
       videoId,
       memberId: member!.id,
     }));
-    
+
     try {
       await this.videoMemberRepository.createMany(relationships);
-      console.log(`Created ${relationships.length} video-member relationships for video ${videoId}`);
+      console.log(
+        `Created ${relationships.length} video-member relationships for video ${videoId}`
+      );
     } catch (error) {
       console.error('Error creating video-member relationships:', error);
       throw new Error('Failed to create video-member relationships');
@@ -312,30 +331,36 @@ export class VideoService {
       videoId: video.videoId,
       title: video.title,
       description: video.description,
-      publishedAt: video.publishedAt.toISOString(),
-      thumbnailDefault: video.thumbnailDefault,
-      thumbnailMedium: video.thumbnailMedium,
-      thumbnailHigh: video.thumbnailHigh,
+      thumbnail:
+        video.thumbnailHigh ||
+        video.thumbnailMedium ||
+        video.thumbnailDefault ||
+        '',
       channelId: video.channelId,
       channelTitle: video.channelTitle,
+      publishedAt: video.publishedAt.toISOString(),
       isOfficial: video.isOfficial,
-      duration: video.duration,
       viewCount: video.viewCount,
       likeCount: video.likeCount,
-      category: video.category,
       tags: video.tags,
-      sourceQuery: video.sourceQuery,
-      crawledAt: video.crawledAt.toISOString(),
-      updatedAt: video.updatedAt.toISOString(),
-      memberAppearances: video.memberAppearances?.map((appearance: any) => ({
-        member: {
-          id: appearance.member.id,
-          name: appearance.member.name,
-          displayName: appearance.member.displayName,
-          generation: appearance.member.generation,
-          hashtags: appearance.member.hashtags,
+      duration: video.duration,
+      thumbnails: {
+        default: {
+          url: video.thumbnailDefault || '',
+          width: 120,
+          height: 90,
         },
-      })) || [],
+        medium: {
+          url: video.thumbnailMedium || '',
+          width: 320,
+          height: 180,
+        },
+        high: {
+          url: video.thumbnailHigh || '',
+          width: 480,
+          height: 360,
+        },
+      },
     };
   }
 }

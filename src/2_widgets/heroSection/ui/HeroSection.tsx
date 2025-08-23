@@ -48,17 +48,17 @@ export function HeroSection({ className, videos }: HeroSectionProps) {
               {/* Description Section */}
               <DescriptionSection video={currentVideo} className="order-2" />
             </div>
-          </div>
-
-          {/* Thumbnail Navigation - positioned at bottom of both sections */}
-          <div className="px-4 lg:px-8 pb-4 lg:pb-8 hidden lg:block">
-            <ThumbnailNavigation
-              videos={videos}
-              activeIndex={activeIndex}
-              onThumbnailSwiperInit={setThumbsSwiper}
-              onSlideChange={handleSlideChange}
-              className="mt-6 lg:mt-8 pt-6 lg:pt-8 border-t border-[var(--color-border-primary)]"
-            />
+            
+            {/* Thumbnail Navigation - positioned at bottom of both sections */}
+            <div className="hidden @lg:block">
+              <ThumbnailNavigation
+                videos={videos}
+                activeIndex={activeIndex}
+                onThumbnailSwiperInit={setThumbsSwiper}
+                onSlideChange={handleSlideChange}
+                className="mt-6 lg:mt-8 pt-6 lg:pt-8 border-t border-[var(--color-border-primary)]"
+              />
+            </div>
           </div>
         </Card>
       </Container>

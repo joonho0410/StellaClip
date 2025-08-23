@@ -26,9 +26,11 @@ export function DescriptionSection({
         </h1>
 
         {/* Video Description */}
-        <p className="text-md text-[var(--color-text-secondary)] leading-relaxed line-clamp-2">
-          {video.description}
-        </p>
+        <div className="hidden @lg:block">
+          <p className="text-md text-[var(--color-text-secondary)] leading-relaxed line-clamp-2">
+            {video.description}
+          </p>
+        </div>
       </div>
 
       {/* Channel Information */}

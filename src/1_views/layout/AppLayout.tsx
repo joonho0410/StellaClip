@@ -1,11 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { QueryProvider } from '@/5_shared/lib/react-query';
-import { useCurrentVideo } from '@/4_entities/video';
-import { VideoSideBar } from '@/3_features/video-sidebar';
+import { VideoSideBar } from '@/2_widgets/video';
 import { VideoCategoryBar } from '@/3_features/video-category';
-import { Header } from '@/5_shared/ui/header';
+import { Footer } from './Footer';
+import { Header } from './Header';
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -19,11 +18,10 @@ export function AppLayout({ children }: AppLayoutProps) {
         <div
           className={`@container transition-all duration-300 ease-out flex items-center flex-col w-full`}
         >
-          <Header>
-            <VideoCategoryBar />
-          </Header>
-          <div className="flex-1 overflow-y-auto overflow-x-auto w-full">
+          <Header />
+          <div className="flex-1 overflow-y-auto w-full">
             {children}
+            <Footer />
           </div>
         </div>
       </div>

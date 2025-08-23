@@ -1,0 +1,1 @@
+export { ContentSection, type ContentSectionProps } from './ContentSection';

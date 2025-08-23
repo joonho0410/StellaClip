@@ -3,16 +3,19 @@
 // 실제로 application 에서 사용할 Type;
 export interface VideoItem {
   id: string;
-  youtubeId: string;
+  videoId: string;
   title: string;
-  description: string;
+  description: string | null;
   thumbnail: string;
   channelId: string;
   channelTitle: string;
   publishedAt: string;
-  publishTime: string;
-  liveBroadcastContent: string;
+  isOfficial: boolean;
+  viewCount: number | null;
+  likeCount: number | null;
+  tags: string;
   thumbnails: YouTubeThumbnails;
+  duration?: string;
 }
 
 // API에서 받아올 때 사용할 responseType
@@ -130,4 +133,5 @@ export interface VideoCreateInput {
   likeCount?: number;
   tags: string; // JSON string
   sourceQuery?: string;
+  duration?: string;
 }

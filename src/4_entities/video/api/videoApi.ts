@@ -45,49 +45,10 @@ class VideoApiService {
 
     const videos: VideoDTO[] = response.data || [];
 
-    // Transform VideoDTO to VideoItem
-    return videos.map(this.transformVideoDTO);
+    // VideoDTO and VideoItem are now identical, no transformation needed
+    return videos;
   }
 
-  /**
-   * 공통 데이터 변환 메서드
-   * VideoDTO -> VideoItem
-   */
-  private transformVideoDTO(video: VideoDTO): VideoItem {
-    return {
-      id: video.id,
-      youtubeId: video.videoId,
-      title: video.title,
-      description: video.description || '',
-      thumbnail:
-        video.thumbnailHigh ||
-        video.thumbnailMedium ||
-        video.thumbnailDefault ||
-        '',
-      channelId: video.channelId,
-      channelTitle: video.channelTitle,
-      publishedAt: video.publishedAt,
-      publishTime: video.publishedAt, // Use same value for both
-      liveBroadcastContent: 'none', // Default value
-      thumbnails: {
-        default: {
-          url: video.thumbnailDefault || '',
-          width: 120,
-          height: 90,
-        },
-        medium: {
-          url: video.thumbnailMedium || '',
-          width: 320,
-          height: 180,
-        },
-        high: {
-          url: video.thumbnailHigh || '',
-          width: 480,
-          height: 360,
-        },
-      },
-    };
-  }
 }
 
 // Singleton instance

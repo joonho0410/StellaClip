@@ -11,7 +11,7 @@ import { Avatar } from '../avatar';
 export interface VideoDetailData {
   id: string;
   title: string;
-  description?: string;
+  description?: string | null;
   thumbnail: string;
   duration?: string;
   channelName?: string;

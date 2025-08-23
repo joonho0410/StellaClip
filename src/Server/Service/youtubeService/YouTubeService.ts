@@ -239,31 +239,31 @@ export class YouTubeService {
       videoId: video.videoId,
       title: video.title,
       description: video.description,
-      publishedAt: video.publishedAt.toISOString(),
-      thumbnailDefault: video.thumbnailDefault,
-      thumbnailMedium: video.thumbnailMedium,
-      thumbnailHigh: video.thumbnailHigh,
+      thumbnail: video.thumbnailHigh || video.thumbnailMedium || video.thumbnailDefault || '',
       channelId: video.channelId,
       channelTitle: video.channelTitle,
+      publishedAt: video.publishedAt.toISOString(),
       isOfficial: video.isOfficial,
-      duration: video.duration,
       viewCount: video.viewCount,
       likeCount: video.likeCount,
-      category: video.category,
       tags: video.tags,
-      sourceQuery: video.sourceQuery,
-      crawledAt: video.crawledAt.toISOString(),
-      updatedAt: video.updatedAt.toISOString(),
-      memberAppearances:
-        video.memberAppearances?.map((appearance: any) => ({
-          member: {
-            id: appearance.member.id,
-            name: appearance.member.name,
-            displayName: appearance.member.displayName,
-            generation: appearance.member.generation,
-            hashtags: appearance.member.hashtags,
-          },
-        })) || [],
+      thumbnails: {
+        default: {
+          url: video.thumbnailDefault || '',
+          width: 120,
+          height: 90,
+        },
+        medium: {
+          url: video.thumbnailMedium || '',
+          width: 320,
+          height: 180,
+        },
+        high: {
+          url: video.thumbnailHigh || '',
+          width: 480,
+          height: 360,
+        },
+      },
     };
   }
 

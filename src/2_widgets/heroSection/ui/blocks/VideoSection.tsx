@@ -16,7 +16,6 @@ import {
   LeftNavigationArrow,
   RightNavigationArrow,
 } from '@/5_shared/svg/NavigationArrows';
-import { useCallback } from 'react';
 
 interface VideoSectionProps {
   videos: VideoItem[];
