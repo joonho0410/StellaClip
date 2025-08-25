@@ -36,11 +36,16 @@ export function validateVideoSearchRequest(params: {
 }): VideoSearchParams {
   // Validate that at least one search parameter is provided
   if (!params.stella && !params.gen) {
-    throw new ValidationError('Either stella or gen parameter is required', 400, {
-      example: '?stella=RIN&page=1&maxResult=10 or ?gen=Universe&page=1&maxResult=10',
-      availableMembers: allMembers,
-      availableGens: allGen,
-    });
+    throw new ValidationError(
+      'Either stella or gen parameter is required',
+      400,
+      {
+        example:
+          '?stella=RIN&page=1&maxResult=10 or ?gen=Universe&page=1&maxResult=10',
+        availableMembers: allMembers,
+        availableGens: allGen,
+      }
+    );
   }
 
   let stellaName: string | undefined;
@@ -59,7 +64,7 @@ export function validateVideoSearchRequest(params: {
 
   // Validate gen parameter (optional)
   if (params.gen) {
-    genName = params.gen.charAt(0).toUpperCase() + params.gen.slice(1).toLowerCase();
+    genName = params.gen.toUpperCase().trim();
     if (genName !== 'ALL' && !allGen.includes(genName as any)) {
       throw new ValidationError(`Invalid gen: ${genName}`, 400, {
         provided: genName,

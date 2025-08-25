@@ -21,12 +21,12 @@ export function DescriptionSection({
         </div>
 
         {/* Video Title */}
-        <h1 className="text-xl lg:text-4xl font-bold text-[var(--color-text-primary)] leading-tight">
+        <h1 className="text-xl lg:text-4xl font-bold text-[var(--color-text-primary)] leading-tight line-clamp-2">
           {video.title}
         </h1>
 
         {/* Video Description */}
-        <div className="hidden @lg:block">
+        <div className="hidden @2xl:block">
           <p className="text-md text-[var(--color-text-secondary)] leading-relaxed line-clamp-2">
             {video.description}
           </p>

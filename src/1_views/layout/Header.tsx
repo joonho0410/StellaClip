@@ -1,4 +1,4 @@
-import { VideoCategoryBar } from '@/3_features/video-category';
+import { VideoCategoryBar } from '@/3_features/selectVideoCategory';
 
 export const Header = () => {
   return (

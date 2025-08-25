@@ -1,7 +1,11 @@
 import type { AllMember, GenType } from '@/4_entities/member';
+import type { VideoDTO } from '@/Server/Service/VideoService';
+
+// Re-export VideoDTO from Server layer
+export type { VideoDTO };
 
 // API 요청 타입들
-export interface SearchVideosRequest {
+export interface SearchVideosParams {
   member?: AllMember | 'ALL';
   generation?: GenType | 'ALL';
   isOfficial?: boolean;
@@ -9,46 +13,10 @@ export interface SearchVideosRequest {
   page?: number;
 }
 
-export interface GetVideoByIdRequest {
-  id: string;
-}
-
-// API 응답 타입들  
+// API 응답 타입들
 export interface SearchVideosResponse {
   data: VideoDTO[];
   total?: number;
   page?: number;
   hasMore?: boolean;
-}
-
-export interface VideoDTO {
-  id: string;
-  videoId: string;
-  title: string;
-  description: string | null;
-  thumbnail: string;
-  channelId: string;
-  channelTitle: string;
-  publishedAt: string;
-  isOfficial: boolean;
-  viewCount: number | null;
-  likeCount: number | null;
-  tags: string;
-  thumbnails: {
-    default: {
-      url: string;
-      width: number;
-      height: number;
-    };
-    medium?: {
-      url: string;
-      width: number;
-      height: number;
-    };
-    high?: {
-      url: string;
-      width: number;
-      height: number;
-    };
-  };
 }

@@ -2,7 +2,6 @@
 
 import { QueryProvider } from '@/5_shared/lib/react-query';
 import { VideoSideBar } from '@/2_widgets/video';
-import { VideoCategoryBar } from '@/3_features/video-category';
 import { Footer } from './Footer';
 import { Header } from './Header';
 

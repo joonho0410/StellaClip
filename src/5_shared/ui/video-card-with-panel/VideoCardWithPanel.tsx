@@ -27,10 +27,10 @@ export function VideoCardWithPanel({
 
   // Generate ID on client side to prevent hydration mismatch
   useEffect(() => {
-    if (!videoProps.id) {
+    if (!videoProps.video.id) {
       setClientId(`video-${Date.now()}-${Math.floor(Math.random() * 1000)}`);
     }
-  }, [videoProps.id]);
+  }, [videoProps.video.id]);
 
   const handleCardClick = () => {
     console.log('Card clicked, enablePanel:', enablePanel); // Debug log
@@ -51,27 +51,27 @@ export function VideoCardWithPanel({
 
   // Convert VideoCardProps to VideoDetailData
   const videoDetailData: VideoDetailData = {
-    id: videoProps.id || clientId,
-    title: videoProps.title,
-    thumbnail: videoProps.thumbnail,
-    duration: videoProps.duration,
-    channelName: videoProps.channelName,
-    channelAvatar: videoProps.channelAvatar,
-    views: videoProps.views,
-    uploadTime: videoProps.uploadTime,
-    isLive: videoProps.isLive,
-    quality: videoProps.quality,
-    description: videoProps.description,
-    youtubeId: videoProps.youtubeId,
-    tags: videoProps.tags ? (() => {
+    id: videoProps.video.id || clientId,
+    title: videoProps.video.title,
+    thumbnail: videoProps.video.thumbnail,
+    duration: videoProps.video.duration,
+    channelName: videoProps.video.channelTitle,
+    channelAvatar: '', // No avatar in VideoItem
+    views: videoProps.video.viewCount?.toString(),
+    uploadTime: videoProps.video.publishedAt,
+    isLive: false, // No live status in VideoItem
+    quality: undefined, // No quality in VideoItem
+    description: videoProps.video.description,
+    youtubeId: videoProps.video.videoId,
+    tags: videoProps.video.tags ? (() => {
       try {
-        return JSON.parse(videoProps.tags);
+        return JSON.parse(videoProps.video.tags);
       } catch {
-        return [videoProps.tags];
+        return [videoProps.video.tags];
       }
     })() : undefined,
-    likeCount: videoProps.likeCount?.toString(),
-    dislikeCount: videoProps.dislikeCount,
+    likeCount: videoProps.video.likeCount?.toString(),
+    dislikeCount: undefined, // No dislike count in VideoItem
   };
 
   console.log('Rendering VideoCardWithPanel, isOpen:', isOpen); // Debug log
@@ -87,7 +87,7 @@ export function VideoCardWithPanel({
         <SlidePanel
           isOpen={isOpen}
           onClose={handleClose}
-          title={videoProps.title}
+          title={videoProps.video.title}
         >
           <VideoDetailPanel
             video={videoDetailData}

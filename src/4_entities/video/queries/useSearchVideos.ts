@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import type { AllMember, GenType } from '@/4_entities/member';
 import { videoApi } from '../api';
 import type { SearchVideosRequest } from '../api';
 

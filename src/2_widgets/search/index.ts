@@ -1,3 +1,2 @@
-export { SearchSection } from './ui';
-export { ContainerSearch } from './ui/containers';
+export { ContainerSearch as SearchListGrid } from './ui/containers';
 export * from './ui/searchVideoGrid';

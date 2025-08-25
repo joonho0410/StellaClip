@@ -3,7 +3,7 @@ import { VideoRepository } from '../Model/VideoRepository';
 import { MemberRepository } from '../Model/MemberRepository';
 import { VideoMemberRepository } from '../Model/VideoMemberRepository';
 import { VideoService } from './VideoService/VideoService';
-import { YouTubeService } from './youtubeService/YouTubeService';
+import { YouTubeService } from './YouTubeService/YouTubeService';
 
 /**
  * Service Container for Dependency Injection

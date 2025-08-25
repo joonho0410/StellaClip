@@ -35,7 +35,6 @@ export function SlidePanel({
     isResizing,
     handleResizeStart,
   } = useResizeWidth({
-    containerRef: slideRef,
     initialWidth,
     minWidth: 300,
     maxWidth: 800,

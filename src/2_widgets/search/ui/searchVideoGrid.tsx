@@ -15,7 +15,8 @@ export const SearchVideoGrid = ({ videos, onVideoClick }: Props) => {
           key={video.id}
           {...videoItemToCardProps(video, {
             onClick: () => onVideoClick?.(video),
-            className: 'cursor-pointer transition-transform hover:scale-105',
+            className:
+              'justify-self-center cursor-pointer transition-transform hover:scale-105 h-full',
             size: 'md',
             showChannel: true,
             aspectRatio: '16:9',

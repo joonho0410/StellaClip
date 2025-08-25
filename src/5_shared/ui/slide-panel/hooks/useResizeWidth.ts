@@ -1,14 +1,12 @@
 import { useState, useCallback } from 'react';
 
 interface UseResizeWidthOptions {
-  containerRef: React.RefObject<HTMLElement | null>;
   initialWidth?: number;
   minWidth?: number;
   maxWidth?: number;
 }
 
 export function useResizeWidth({
-  containerRef,
   initialWidth = 600,
   minWidth = 300,
   maxWidth = 800,

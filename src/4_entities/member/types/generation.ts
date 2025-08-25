@@ -8,9 +8,9 @@ import { stellaMembers } from '../model/constants';
 type Stella = typeof stellaMembers;
 
 export type GenType = keyof Stella;
-export type Mystic = Stella['Mystic'];
-export type Universe = Stella['Universe'];
-export type Cliche = Stella['Cliche'];
+export type Mystic = Stella['MYSTIC'];
+export type Universe = Stella['UNIVERSE'];
+export type Cliche = Stella['CLICHE'];
 export type AllMember = GenType extends keyof Stella
   ? Stella[GenType][number]
   : never;

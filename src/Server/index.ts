@@ -10,8 +10,8 @@ export {
 } from './Service/ServiceContainer';
 
 // Services
-export { VideoService } from './Service/VideoService/VideoService';
-export { YouTubeService } from './Service/youtubeService/YouTubeService';
+export { VideoService } from './Service/VideoService';
+export { YouTubeService } from './Service/YouTubeService';
 
 // Repositories
 export { VideoRepository } from './Model/VideoRepository';
@@ -24,7 +24,7 @@ export type {
   VideoListResponse,
   VideoSearchResponse,
   MemberAppearanceDTO,
-} from './types/dto/VideoDTO';
+} from './Service/VideoService';
 
 export type {
   PaginationParams,
@@ -42,4 +42,4 @@ export type {
   YouTubeVideoDetails,
   YouTubeChannelProcessResult,
   YouTubeBatchProcessResult,
-} from './types/dto/YouTubeDTO';
+} from './Service/YouTubeService';

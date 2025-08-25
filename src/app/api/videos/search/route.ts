@@ -1,22 +1,26 @@
 import { NextRequest } from 'next/server';
 import { getServiceContainer } from '@/Server/Service/ServiceContainer';
-import { 
-  createErrorResponse, 
+import {
+  createErrorResponse,
   createPaginatedResponse,
-  withErrorHandling
+  withErrorHandling,
 } from '../../utils';
-import { validateVideoSearchRequest, validateSearchServiceResponse, ValidationError } from './validate';
+import {
+  validateVideoSearchRequest,
+  validateSearchServiceResponse,
+  ValidationError,
+} from './validate';
 
 /**
  * Video Search API
- * 
+ *
  * GET /api/videos/search - Search videos by Stella member or generation
  */
 export async function GET(request: NextRequest) {
   return withErrorHandling(async () => {
     try {
       const { searchParams } = new URL(request.url);
-      
+
       // Extract query parameters
       const queryParams = {
         stella: searchParams.get('stella'),
@@ -36,7 +40,7 @@ export async function GET(request: NextRequest) {
       // Search videos through service layer - choose method based on parameters
       let searchResult;
       let searchDescription;
-      
+
       if (validatedParams.stella) {
         // Search by stella member
         searchResult = await videoService.searchVideosByStella({
@@ -72,15 +76,11 @@ export async function GET(request: NextRequest) {
         },
         searchDescription
       );
-
     } catch (error) {
       // Handle validation errors
       if (error instanceof ValidationError) {
-        return createErrorResponse(
-          error.message,
-          error.statusCode,
-          error.data
-        );
+        console.log(error.message);
+        return createErrorResponse(error.message, error.statusCode, error.data);
       }
 
       // Let withErrorHandling handle all other errors

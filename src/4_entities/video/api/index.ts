@@ -1,7 +1,7 @@
 export { videoApi } from './videoApi';
 export type { 
-  SearchVideosRequest, 
+  SearchVideosParams as SearchVideosRequest, 
   SearchVideosResponse, 
   VideoDTO, 
-  GetVideoByIdRequest 
+  SearchVideosParams as GetVideoByIdRequest 
 } from './types';

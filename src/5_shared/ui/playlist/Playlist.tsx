@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { cn } from '@/shared/lib/utils';
+import { cn } from '@/5_shared/lib/utils';
 import { Text } from '../typography';
 import { Button, IconButton } from '../button';
 // import { Badge } from '../badge'; // Currently unused but may be needed for future features

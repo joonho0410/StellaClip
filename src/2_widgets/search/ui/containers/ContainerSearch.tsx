@@ -5,6 +5,7 @@ import { SearchSkeleton, SearchError } from './';
 import { Card } from '@/5_shared/ui/card';
 import { Container } from '@/5_shared/ui/container';
 import { useCurrentVideo } from '@/4_entities';
+import { SearchIcon } from '@/5_shared/svg';
 
 interface ContainerSearchProps {
   className?: string;
@@ -48,13 +49,9 @@ const ContainerSearch = ({ className }: ContainerSearchProps) => {
           >
             <div className="text-center space-y-3">
               <div className="w-16 h-16 mx-auto bg-[var(--color-bg-tertiary)] rounded-full flex items-center justify-center">
-                <svg
-                  className="w-8 h-8 text-[var(--color-text-tertiary)]"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
-                </svg>
+                <div className="w-8 h-8 text-[var(--color-text-tertiary)]">
+                  <SearchIcon />
+                </div>
               </div>
               <div className="space-y-1">
                 <div className="text-[var(--color-text-primary)] text-lg font-medium">
@@ -73,7 +70,7 @@ const ContainerSearch = ({ className }: ContainerSearchProps) => {
 
   return (
     <section className={className}>
-      <Container size="xl" className="px-2 sm:px-4">
+      <Container size="xl" className="sm:px-0 lg:px-0 px-0 @lg:px-4">
         <SearchVideoGrid videos={videos} onVideoClick={setCurrentVideo} />
       </Container>
     </section>

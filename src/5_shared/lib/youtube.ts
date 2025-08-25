@@ -1,4 +1,5 @@
 // YouTube utility functions for handling YouTube URLs and data
+import { formatViewCount } from './video-utils';
 
 export interface YouTubeVideoData {
   id: string;
@@ -69,15 +70,6 @@ export function formatDuration(seconds: number): string {
   return `${minutes}:${secs.toString().padStart(2, '0')}`;
 }
 
-// Format view count
-export function formatViewCount(views: number): string {
-  if (views >= 1000000) {
-    return `${(views / 1000000).toFixed(1)}M views`;
-  } else if (views >= 1000) {
-    return `${(views / 1000).toFixed(1)}K views`;
-  }
-  return `${views} views`;
-}
 
 // Format time ago
 export function formatTimeAgo(date: Date): string {
@@ -147,7 +139,7 @@ export function generateMockYouTubeVideo(id: string, overrides?: Partial<YouTube
     duration: formatDuration(randomDuration),
     channelName: randomChannel.name,
     channelAvatar: randomChannel.avatar,
-    views: formatViewCount(randomViews),
+    views: formatViewCount(randomViews) || '0 views',
     uploadTime: `${randomDaysAgo} days ago`,
     url: `https://www.youtube.com/watch?v=${id}`,
     embedUrl: getYouTubeEmbedUrl(id),

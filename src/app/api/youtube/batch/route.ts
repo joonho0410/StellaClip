@@ -79,8 +79,8 @@ export async function POST(request: NextRequest) {
     const result = await youtubeService.batchProcessChannels(uniqueChannels);
 
     // Analyze results for response
-    const successfulChannels = result.results.filter((r) => r.success);
-    const failedChannels = result.results.filter((r) => !r.success);
+    const successfulChannels = result.results.filter((r: any) => r.success);
+    const failedChannels = result.results.filter((r: any) => !r.success);
 
     return NextResponse.json({
       success: true,
@@ -92,14 +92,14 @@ export async function POST(request: NextRequest) {
           totalChannels: uniqueChannels.length,
           successfulChannels: successfulChannels.length,
           failedChannels: failedChannels.length,
-          totalVideosProcessed: result.totalProcessed,
+          totalVideosProcessed: result.totalVideosProcessed,
           duplicatesRemoved: stellas.length - uniqueChannels.length,
         },
         results: result.results,
       },
       ...(failedChannels.length > 0 && {
         warnings: {
-          failedChannels: failedChannels.map((channel) => ({
+          failedChannels: failedChannels.map((channel: any) => ({
             channel: channel.channelName,
             error: channel.error,
           })),

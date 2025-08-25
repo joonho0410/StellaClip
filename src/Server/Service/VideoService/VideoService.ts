@@ -5,7 +5,7 @@ import type {
   CreateVideoDTO,
   UpdateVideoDTO,
   VideoDTO,
-} from '../../types/dto/VideoDTO';
+} from './types';
 import type { PaginationParams } from '../../types/interfaces/ServiceInterfaces';
 
 /**

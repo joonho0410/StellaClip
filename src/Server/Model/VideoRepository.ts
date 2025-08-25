@@ -1,5 +1,5 @@
 import { PrismaClient, Video, VideoCategory } from '@prisma/client';
-import type { CreateVideoDTO, UpdateVideoDTO } from '../types/dto/VideoDTO';
+import type { CreateVideoDTO, UpdateVideoDTO } from '../Service/VideoService/types';
 import type { PaginationParams } from '../types/interfaces/ServiceInterfaces';
 
 /**
