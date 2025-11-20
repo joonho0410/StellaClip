@@ -45,7 +45,7 @@ export function useHandleURLQuery() {
   const updateURL = useCallback(
     (newParams: URLSearchParams) => {
       const queryString = newParams.toString();
-      let newURL = pathname;
+      const newURL = pathname;
       router.push(newURL + '?' + queryString);
     },
     [pathname, router]

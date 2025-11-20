@@ -5,7 +5,7 @@ import type { AllMember, GenType } from '../types';
  * gen별로 stella 멤버들을 그룹화
  */
 export const stellaMembers = {
-  MYSTIC: ['YUNI'],
+  EVERYS: ['YUNI', 'HUYA'],
   UNIVERSE: ['HINA', 'TABI', 'LIZE', 'MASHIRO'],
   CLICHE: ['RIN', 'NANA', 'RICO', 'BUKI'],
 } as const;

@@ -1,18 +1,20 @@
-import { useSelectedGen, useSelectedStella } from '@/4_entities';
+import { useHandleURLQuery } from '@/shared/lib/hooks';
 import { useSearchVideos } from '@/4_entities/video/queries';
 import { HeroSection } from '../HeroSection';
 import { HeroSectionSkeleton, HeroSectionError } from './';
 import { Card } from '@/5_shared/ui/card';
 import { Container } from '@/5_shared/ui/container';
 import { VideoIcon } from '@/5_shared/svg';
+import type { AllMember, GenType } from '@/4_entities/member';
 
 interface ContainerHeroSectionProps {
   className?: string;
 }
 
 const ContainerHeroSection = ({ className }: ContainerHeroSectionProps) => {
-  const gen = useSelectedGen();
-  const stella = useSelectedStella();
+  const { getQuery } = useHandleURLQuery();
+  const gen = (getQuery('gen') || 'ALL') as GenType | 'ALL';
+  const stella = (getQuery('stella') || 'ALL') as AllMember | 'ALL';
   const { videos, isLoading: loading, error, refetch } = useSearchVideos({
     member: stella !== 'ALL' ? stella : undefined,
     generation: gen !== 'ALL' ? gen : undefined, 

@@ -1,4 +1,4 @@
-import { useSelectedGen, useSelectedStella } from '@/4_entities/member';
+import { useHandleURLQuery } from '@/shared/lib/hooks';
 import { useSearchVideos } from '@/4_entities/video/queries';
 import { SearchVideoGrid } from '../searchVideoGrid';
 import { SearchSkeleton, SearchError } from './';
@@ -6,14 +6,16 @@ import { Card } from '@/5_shared/ui/card';
 import { Container } from '@/5_shared/ui/container';
 import { useCurrentVideo } from '@/4_entities';
 import { SearchIcon } from '@/5_shared/svg';
+import type { AllMember, GenType } from '@/4_entities/member';
 
 interface ContainerSearchProps {
   className?: string;
 }
 
 const ContainerSearch = ({ className }: ContainerSearchProps) => {
-  const gen = useSelectedGen();
-  const stella = useSelectedStella();
+  const { getQuery } = useHandleURLQuery();
+  const gen = (getQuery('gen') || 'ALL') as GenType | 'ALL';
+  const stella = (getQuery('stella') || 'ALL') as AllMember | 'ALL';
   const { setCurrentVideo } = useCurrentVideo();
   const {
     videos,

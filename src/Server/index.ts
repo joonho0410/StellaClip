@@ -11,7 +11,7 @@ export {
 
 // Services
 export { VideoService } from './Service/VideoService';
-export { YouTubeService } from './Service/YouTubeService';
+export { YouTubeService } from './Service/youtubeService';
 
 // Repositories
 export { VideoRepository } from './Model/VideoRepository';
@@ -42,4 +42,4 @@ export type {
   YouTubeVideoDetails,
   YouTubeChannelProcessResult,
   YouTubeBatchProcessResult,
-} from './Service/YouTubeService';
+} from './Service/youtubeService';

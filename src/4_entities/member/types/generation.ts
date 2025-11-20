@@ -8,7 +8,7 @@ import { stellaMembers } from '../model/constants';
 type Stella = typeof stellaMembers;
 
 export type GenType = keyof Stella;
-export type Mystic = Stella['MYSTIC'];
+export type Mystic = Stella['EVERYS'];
 export type Universe = Stella['UNIVERSE'];
 export type Cliche = Stella['CLICHE'];
 export type AllMember = GenType extends keyof Stella

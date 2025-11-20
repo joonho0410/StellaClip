@@ -1,26 +1,39 @@
 import { useTransition } from 'react';
-import { useSelectedGen, useSelectedStella, useCategoryActions } from '@/4_entities/member';
+import { useHandleURLQuery } from '@/shared/lib/hooks';
 import type { AllMember, GenType } from '@/4_entities/member';
 
 /**
- * VideoCategoryBar를 위한 비즈니스 로직을 관리하는 커스텀 훅
- * - Category 상태 관리 (zustand)
+ * MemberBar를 위한 비즈니스 로직을 관리하는 커스텀 훅
+ * - URL Query Parameter 기반 상태 관리
  * - 탭/서브탭 전환 로직
  * - useTransition을 통한 성능 최적화
+ *
+ * @example
+ * ```tsx
+ * const { activeTabId, activeSubTabId, handleTabChange, handleSubTabChange } = useMemberBar();
+ * ```
+ *
+ * Query Parameters:
+ * - gen: 'ALL' | 'Mystic' | 'Universe' | 'Cliche'
+ * - stella: 'ALL' | AllMember
  */
-export const useVideoCategoryBar = () => {
-  const gen = useSelectedGen();
-  const stella = useSelectedStella();
-  const { setGen, setStella } = useCategoryActions();
+export const useMemberBar = () => {
+  const { getQuery, setQueries } = useHandleURLQuery();
   const [isPending, startTransition] = useTransition();
 
-  // 메인 탭 변경 핸들러 - ALL만 예외로 전역 상태 변경
+  // URL Query에서 현재 상태 읽기
+  const gen = (getQuery('gen') || 'ALL') as GenType | 'ALL';
+  const stella = (getQuery('stella') || 'ALL') as AllMember | 'ALL';
+
+  // 메인 탭 변경 핸들러 - ALL만 예외로 쿼리 변경
   const handleTabChange = (tabId: string) => {
-    // ALL 탭만 전역 상태 변경 (전체 영상 보기)
+    // ALL 탭만 쿼리 변경 (전체 영상 보기)
     if (tabId === 'ALL') {
       startTransition(() => {
-        setGen('ALL');
-        setStella('ALL');
+        setQueries({
+          gen: 'ALL',
+          stella: 'ALL',
+        });
       });
     }
     // 다른 메인 탭(Mystic, Universe, Cliche)은 상태 변경하지 않음
@@ -30,11 +43,15 @@ export const useVideoCategoryBar = () => {
   const handleSubTabChange = (tabId: string, subTabId: string) => {
     startTransition(() => {
       if (subTabId === 'ALL') {
-        setGen(tabId as GenType);
-        setStella('ALL');
+        setQueries({
+          gen: tabId,
+          stella: 'ALL',
+        });
       } else {
-        setGen(tabId as GenType);
-        setStella(subTabId as AllMember);
+        setQueries({
+          gen: tabId,
+          stella: subTabId,
+        });
       }
     });
   };

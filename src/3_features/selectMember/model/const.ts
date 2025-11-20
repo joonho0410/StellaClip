@@ -16,10 +16,10 @@ function makeSubTabs(members: readonly AllMember[]): Tab['subTabs'] {
 }
 
 /**
- * 비디오 카테고리 탭 구조
+ * 멤버 카테고리 탭 구조
  * ALL이 가장 왼쪽에 위치하도록 구성
  */
-export const videoCategories: Tab[] = [
+export const memberCategories: Tab[] = [
   { id: 'ALL', label: 'ALL' },
   ...Object.entries(stellaMembers).map(([gen, members]) => ({
     id: gen,
