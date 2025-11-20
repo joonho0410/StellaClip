@@ -86,7 +86,6 @@ React 개발자라면 꼭 알아야 할 Next.js 15의 핵심 기능들을 실무
     views: '156K views',
     uploadTime: '5 days ago',
     quality: 'HD' as const,
-    videoSrc: '/sample-video.mp4', // Local video example
     description: `모던 CSS 레이아웃의 핵심인 Grid와 Flexbox를 완전히 마스터해봅시다.
 
 학습 내용:
