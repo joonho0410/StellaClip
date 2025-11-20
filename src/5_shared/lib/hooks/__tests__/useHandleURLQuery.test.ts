@@ -442,4 +442,107 @@ describe('useHandleURLQuery', () => {
       expect(url).toContain('sort=latest');
     });
   });
+
+  describe('Single Value Guarantee (No Multi-Value Support)', () => {
+    it('should replace existing value when setting same key multiple times', () => {
+      // Given: q1=value1 쿼리가 있음
+      const searchParams = new URLSearchParams();
+      searchParams.append('q1', 'value1');
+      (useSearchParams as jest.Mock).mockReturnValue(searchParams);
+
+      // When: 같은 key로 다시 setQuery 호출
+      const { result } = renderHook(() => useHandleURLQuery());
+      act(() => {
+        result.current.setQuery('q1', 'value2');
+      });
+
+      // Then: 마지막 값으로 덮어씌워져야 함 (multi-value가 아님)
+      const url = mockPush.mock.calls[0][0];
+      expect(url).toBe('/test-page?q1=value2');
+      expect(url).not.toContain('value1');
+    });
+
+    it('should only return first value when multiple values exist for same key', () => {
+      // Given: URLSearchParams에 같은 key로 여러 값이 있음 (수동으로 생성)
+      const searchParams = new URLSearchParams();
+      searchParams.append('q1', 'first');
+      searchParams.append('q1', 'second');
+      searchParams.append('q1', 'third');
+      (useSearchParams as jest.Mock).mockReturnValue(searchParams);
+
+      // When: getQuery로 값 조회
+      const { result } = renderHook(() => useHandleURLQuery());
+
+      // Then: 첫 번째 값만 반환되어야 함 (URLSearchParams.get의 기본 동작)
+      expect(result.current.getQuery('q1')).toBe('first');
+    });
+
+    it('should handle getAllQueries with duplicate keys by keeping last value', () => {
+      // Given: 같은 key로 여러 값이 있는 URLSearchParams
+      const searchParams = new URLSearchParams();
+      searchParams.append('q1', 'first');
+      searchParams.append('q1', 'second');
+      searchParams.append('other', 'value');
+      (useSearchParams as jest.Mock).mockReturnValue(searchParams);
+
+      // When: getAllQueries 호출
+      const { result } = renderHook(() => useHandleURLQuery());
+      const allQueries = result.current.getAllQueries();
+
+      // Then: forEach는 마지막 값을 유지함
+      // URLSearchParams.forEach는 모든 항목을 순회하므로 마지막 값으로 덮어씌워짐
+      expect(allQueries.q1).toBe('second');
+      expect(allQueries.other).toBe('value');
+    });
+
+    it('should prevent multi-value by using set instead of append', () => {
+      // Given: 빈 쿼리
+      mockSearchParams({});
+
+      // When: setQuery를 여러 번 호출 (같은 key)
+      const { result } = renderHook(() => useHandleURLQuery());
+
+      act(() => {
+        result.current.setQuery('filter', 'value1');
+      });
+
+      // 다시 mockSearchParams 업데이트 (첫 번째 setQuery 결과 반영)
+      const updatedParams = new URLSearchParams();
+      updatedParams.set('filter', 'value1');
+      (useSearchParams as jest.Mock).mockReturnValue(updatedParams);
+
+      act(() => {
+        result.current.setQuery('filter', 'value2');
+      });
+
+      // Then: 마지막 호출의 URL에는 value2만 있어야 함
+      const lastCallUrl = mockPush.mock.calls[mockPush.mock.calls.length - 1][0];
+      expect(lastCallUrl).toBe('/test-page?filter=value2');
+
+      // URL에 filter가 한 번만 나타나야 함
+      const filterCount = (lastCallUrl.match(/filter=/g) || []).length;
+      expect(filterCount).toBe(1);
+    });
+
+    it('should not create duplicate keys when using setQueries', () => {
+      // Given: 기존 쿼리가 있음
+      mockSearchParams({ filter: 'old' });
+
+      // When: setQueries로 같은 key를 업데이트
+      const { result } = renderHook(() => useHandleURLQuery());
+      act(() => {
+        result.current.setQueries({
+          filter: 'new',
+          page: '1',
+        });
+      });
+
+      // Then: filter는 한 번만 나타나야 함
+      const url = mockPush.mock.calls[0][0];
+      const filterCount = (url.match(/filter=/g) || []).length;
+      expect(filterCount).toBe(1);
+      expect(url).toContain('filter=new');
+      expect(url).not.toContain('filter=old');
+    });
+  });
 });
