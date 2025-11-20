@@ -1,14 +1,12 @@
 import React from 'react';
-import { VideoCard, VideoCardProps } from '../video-card';
+import { VideoCard, VideoCardProps } from '@/4_entities/video/ui';
 import { Grid } from '../layout';
+import { VideoIcon } from '@/5_shared/svg';
 
 export interface VideoGridProps {
   videos: (VideoCardProps & { id: string })[];
   cols?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-  colsSmall?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-  colsMedium?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-  colsLarge?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-  colsXLarge?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+  colsDesktop?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
   gap?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   className?: string;
   cardSize?: 'sm' | 'md' | 'lg';
@@ -20,10 +18,7 @@ export interface VideoGridProps {
 export function VideoGrid({
   videos,
   cols = 1,
-  colsSmall = 2,
-  colsMedium = 3,
-  colsLarge = 4,
-  colsXLarge = 5,
+  colsDesktop = 3,
   gap = 'lg',
   className,
   cardSize = 'md',
@@ -35,10 +30,7 @@ export function VideoGrid({
     return (
       <div className="flex flex-col items-center justify-center py-12 text-center">
         <div className="w-16 h-16 bg-[var(--color-bg-tertiary)] rounded-full flex items-center justify-center mb-4">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-[var(--color-text-tertiary)]">
-            <path d="M23 7l-7 5 7 5V7z" />
-            <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
-          </svg>
+          <VideoIcon />
         </div>
         <h3 className="text-lg font-medium text-[var(--color-text-primary)] mb-2">
           No videos found
@@ -53,10 +45,7 @@ export function VideoGrid({
   return (
     <Grid
       cols={cols}
-      colsSmall={colsSmall}
-      colsMedium={colsMedium}
-      colsLarge={colsLarge}
-      colsXLarge={colsXLarge}
+      colsDesktop={colsDesktop}
       gap={gap}
       className={className}
     >

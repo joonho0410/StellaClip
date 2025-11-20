@@ -1,0 +1,1 @@
+export { useSearchVideos, type SearchVideosParams } from './useSearchVideos';

@@ -7,9 +7,10 @@ export * from './layout';
 export * from './form';
 export * from './badge';
 export * from './hero-section';
+export * from './category-bar';
+export * from './content-section';
 
 // Video Components
-export * from './video-card';
 export * from './video-card-with-panel';
 export * from './video-grid';
 export * from './category-section';
